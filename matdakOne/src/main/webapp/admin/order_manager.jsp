@@ -4,13 +4,12 @@
 <%@page import="java.util.Date"%>
 <%@page import="org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation"%>
 <%@page import="java.text.ParseException"%>
-<%@page import="xyz.itwill.dao.AdminDAO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%-- <%@include file="/security/admin_check.jspf" %> --%>
+<%@include file="/security/admin_check.jspf" %>
 <%
 	String search = request.getParameter("search");
 	if(search==null){
@@ -167,17 +166,16 @@ td a, td a:hover {
 </div>
 
 <%-- 서칭 처리--%>
-	<div class="notice-searching-box">
-	<form action="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=order_manager" method="post" style="display: inline;">
-		ID : 
-		<input type="text" name="keyword" value="<%=keyword%>" placeholder="아이디를 검색하세요."> 
-		<button type="submit" style="font-size:15px;"><img src="shop/search.png" width="15px" height="15px"></button>		
-	</form>
-	</div>
+<div class="notice-searching-box">
+<form action="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=order_manager" method="post" style="display: inline;">
+	ID : 
+	<input type="text" name="keyword" value="<%=keyword%>" placeholder="아이디를 검색하세요."> 
+	<button type="submit" style="font-size:15px;"><img src="shop/search.png" width="15px" height="15px"></button>		
+</form>
+</div>
 
 
 <script type="text/javascript">
-
 $("#category").change(function() { //카테고리 선택시 상태 변경
 	$("#orderForm").submit();
 });

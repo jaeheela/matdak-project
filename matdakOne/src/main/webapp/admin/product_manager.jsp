@@ -1,13 +1,12 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="xyz.itwill.dao.AdminPDAO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="xyz.itwill.dao.ProductDAO"%>
 <%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%--  <%@include file="/security/admin_check.jspf" %> --%>
+<%@include file="/security/admin_check.jspf" %>
 <%
 	String pCate=request.getParameter("pCate");
 	if(pCate==null) {

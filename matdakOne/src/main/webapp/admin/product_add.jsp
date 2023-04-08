@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@include file="/security/admin_check.jspf" %> --%>
+<%@include file="/security/admin_check.jspf" %>
 <style type="text/css">
 #product {
 	width: 800px;
@@ -16,10 +16,7 @@ td {
 
 <div id="product">
 	<h2>제품등록</h2>
-	
-	<%-- 사용자로부터 파일을 입력받아 요청 페이지로 전달하기 위해서는 반드시 form 태그의
-	enctype 속성값을 [multipart/form-data]으로 설정 --%>
-	<form action="<%=request.getContextPath() %>/index.jsp?workgroup=admin&work=product_add_action" 
+	<form action="<%=request.getContextPath() %>/index.jsp?workgroup=admin_action&work=product_add_action" 
 		method="post" enctype="multipart/form-data" id="productForm">
 		<table>
 			<tr>

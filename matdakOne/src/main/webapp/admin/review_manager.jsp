@@ -3,14 +3,13 @@
 <%@page import="java.util.Date"%>
 <%@page import="org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation"%>
 <%@page import="java.text.ParseException"%>
-<%@page import="xyz.itwill.dao.AdminDAO"%>
 <%@page import="xyz.itwill.dto.ReviewDTO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%--<%@include file="/security/admin_check.jspf" %>  --%>
+<%@include file="/security/admin_check.jspf" %>
 <%
 	String category=request.getParameter("category");
 	if(category==null) {

@@ -98,8 +98,7 @@
     top:0px;
 }
 </style>
-	<%
-	//세션에 저장된 권한 관련 정보를 반환받아 저장
+<%
 	HewonDTO loginHewon=(HewonDTO)session.getAttribute("loginHewon");
 %>    
 <div class="header-login-join">

@@ -3,7 +3,7 @@
 <%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@include file="/security/admin_check.jspf" %> --%>
+<%@include file="/security/admin_check.jspf" %>
 <%
 	if(request.getParameter("pNo")==null) {
 		out.println("<script type='text/javascript'>");
@@ -39,7 +39,7 @@ td {
 <div id="product">
 	<h2>상품변경</h2>
 	
-	<form action="<%=request.getContextPath() %>/index.jsp?workgroup=admin&work=product_modify_action" method="post" enctype="multipart/form-data" id="productForm">
+	<form action="<%=request.getContextPath() %>/index.jsp?workgroup=admin_action&work=product_modify_action" method="post" enctype="multipart/form-data" id="productForm">
 		<input type="hidden" name="pNo" value="<%=product.getpNo()%>">
 		<input type="hidden" name="currentpImg" value="<%=product.getpImg()%>">
 		<input type="hidden" name="currentpInfo" value="<%=product.getpInfo()%>">

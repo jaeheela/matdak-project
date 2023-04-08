@@ -77,7 +77,6 @@
 
 </style>
 <%
-	//세션에 저장된 권한 관련 정보를 반환받아 저장
 	HewonDTO loginHewon=(HewonDTO)session.getAttribute("loginHewon");
 %>
 
@@ -98,35 +97,11 @@
 	<% } %>	
 </div>
 
-<%--
-<div class="header-login-join">
-	<ul>
-	<% if(loginHewon==null) {//비로그인 사용자인 경우 %>
-		<li><a href="index.jsp?workgroup=hewon&work=hewon_login&login=1">로그인</a>&nbsp;&nbsp;</li>
-		<li><a href="index.jsp?workgroup=hewon&work=hewon_join">회원가입</a>&nbsp;&nbsp;</li>
-	<% } else {//로그인 사용자인 경우  %>
-		<li><a href="index.jsp?workgroup=hewon&work=hewon_logout_action">로그아웃</a>&nbsp;&nbsp;</li>
-		<% if(loginHewon.gethStatus()==9) {//로그인 사용자가 관리자인 경우 %>
-			<li><a href="index.jsp?workgroup=main&work=main_page">쇼핑몰</a>&nbsp;&nbsp;</li>
-		<% } %>
-	<% } %>		
-	</ul>
-</div>
- --%>    
-
 <%if(loginHewon!=null){ %>
 <div style="width: 98%; text-align: right; position: absolute; top:70px; font-size: 13px; padding-right: 15px;">
 [<span style="font-weight: 530"><%=loginHewon.gethName() %></span>]님, 환영합니다
 </div>
 <%} %>
-
-<%-- 
-<%if(loginHewon!=null){ %>
-<div style="width: 100%; text-align: right; position: absolute; top:70px;">
-[<span style="font-weight: 900"><%=loginHewon.gethName() %></span>]님, 환영합니다
-</div>
-<%} %>
---%>
 
 <div class="header-logo">
 	<img src="<%=request.getContextPath()%>/theme/basic/img/head/logo_main5.png" alt="matdak_main_logo">

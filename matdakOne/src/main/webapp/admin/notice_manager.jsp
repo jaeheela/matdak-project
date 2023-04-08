@@ -2,7 +2,6 @@
 <%@page import="java.util.Date"%>
 <%@page import="org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation"%>
 <%@page import="java.text.ParseException"%>
-<%@page import="xyz.itwill.dao.AdminDAO"%>
 <%@page import="xyz.itwill.dao.NoticeDAO"%>
 <%@page import="xyz.itwill.dto.NoticeDTO"%>
 <%@page import="java.text.DecimalFormat"%>
@@ -10,7 +9,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%-- <%@include file="/security/admin_check.jspf" %> --%>
+<%@include file="/security/admin_check.jspf" %>
 <%
 	String category=request.getParameter("category");
 	if(category==null) {
@@ -159,37 +158,35 @@ td a, td a:hover {
 
 
 <div class="notice-paging-box">
+<% if(StartPage>blockSize) { %>
+	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=notice_manager&pageNum=<%=StartPage-blockSize%>&search=<%=search%>&keyword=<%=keyword%>&category=<%=nStatus%>">[이전]</a>
+<% } else{ %>
+	<span style="color: gray;">[이전]</span>
+<%} %>
 
-		<% if(StartPage>blockSize) { %>
-			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=notice_manager&pageNum=<%=StartPage-blockSize%>&search=<%=search%>&keyword=<%=keyword%>&category=<%=nStatus%>">[이전]</a>
-		<% } else{ %>
-			<span style="color: gray;">[이전]</span>
-		<%} %>
-		
-		<%for(int i=StartPage; i<=endPage; i++) {%>
-			<% if(pageNum!=i){%>
-			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=notice_manager&pageNum=<%=i%>&search=<%=search%>&keyword=<%=keyword%>&category=<%=nStatus%>">[<%=i %>]</a>
-			<%} else {%>
-				<span style="font-weight: 900">[<%=i %>]</span>
-			<%} %>
-		<%} %>
-		
-		<%if(endPage!=totalPage){ %>
-			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=notice_manager&pageNum=<%=StartPage+blockSize%>&search=<%=search%>&keyword=<%=keyword%>&category=<%=nStatus%>">[다음]</a>
-		<%} else{ %>
-			<span style="color: gray;">[다음]</span>
-		<%} %>
-		
+<%for(int i=StartPage; i<=endPage; i++) {%>
+	<% if(pageNum!=i){%>
+	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=notice_manager&pageNum=<%=i%>&search=<%=search%>&keyword=<%=keyword%>&category=<%=nStatus%>">[<%=i %>]</a>
+	<%} else {%>
+		<span style="font-weight: 900">[<%=i %>]</span>
+	<%} %>
+<%} %>
+
+<%if(endPage!=totalPage){ %>
+	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=notice_manager&pageNum=<%=StartPage+blockSize%>&search=<%=search%>&keyword=<%=keyword%>&category=<%=nStatus%>">[다음]</a>
+<%} else{ %>
+	<span style="color: gray;">[다음]</span>
+<%} %>		
 </div>
 
 <%-- 서칭 처리--%>
-	<div class="notice-searching-box">
-	<form action="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=notice_manager" method="post" style="display: inline;">
-		ID : 
-		<input type="text" name="keyword" value="<%=keyword%>" placeholder="아이디를 검색하세요."> 
-		<button type="submit" style="font-size:15px;">검색</button>		
-	</form>
-	</div>
+<div class="notice-searching-box">
+<form action="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=notice_manager" method="post" style="display: inline;">
+	ID : 
+	<input type="text" name="keyword" value="<%=keyword%>" placeholder="아이디를 검색하세요."> 
+	<button type="submit" style="font-size:15px;">검색</button>		
+</form>
+</div>
 
 
 <script type="text/javascript">

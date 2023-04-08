@@ -1,12 +1,11 @@
 <%@page import="xyz.itwill.dto.HewonDTO"%>
-<%@page import="xyz.itwill.dao.AdminDAO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="xyz.itwill.dao.HewonDAO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
-<%-- <%@include file="/security/admin_check.jspf" %>   --%>
+<%@include file="/security/admin_check.jspf" %>
 <%
 	String keyword = request.getParameter("keyword");
 	if(keyword==null){
@@ -183,7 +182,7 @@ $("#removeBtn").click(function() {
 		return;
 	}
 	
-	$("#HewonForm").attr("action", "<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=hewon_remove_action");
+	$("#HewonForm").attr("action", "<%=request.getContextPath()%>/index.jsp?workgroup=admin_action&work=hewon_remove_action");
 	$("#HewonForm").attr("method","post");
 	
 	$("#HewonForm").submit();
@@ -198,6 +197,6 @@ $(".status").change(function() {
 	// => 변경할 회원상태를 제공받아 저장 - 변경값
 	var status=$(this).val();
 	
-	location.href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=hewon_status_action&id="+id+"&status="+status;
+	location.href="<%=request.getContextPath()%>/index.jsp?workgroup=admin_action&work=hewon_status_action&id="+id+"&status="+status;
 });
 </script>

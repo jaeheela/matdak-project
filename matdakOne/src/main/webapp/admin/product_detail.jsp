@@ -1,11 +1,10 @@
-<%@page import="xyz.itwill.dao.AdminPDAO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.awt.Image"%>
 <%@page import="xyz.itwill.dao.ProductDAO"%>
 <%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@include file="/security/admin_check.jspf" %> --%>
+<%@include file="/security/admin_check.jspf" %>
 <%
 	if(request.getParameter("pNo")==null) {
 		out.println("<script type='text/javascript'>");
@@ -91,7 +90,7 @@ td {
 <script>
 $("#removeBtn").click(function() {
 	if(confirm("정말로 삭제 하시겠습니까? (복구 불가능)")){
-		location.href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=product_delete_action&pNo=<%=product.getpNo()%>";
+		location.href="<%=request.getContextPath()%>/index.jsp?workgroup=admin_action&work=product_delete_action&pNo=<%=product.getpNo()%>";
 	}
 })
 </script>
