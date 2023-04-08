@@ -182,4 +182,94 @@ public class JumunDAO extends JdbcDAO {
 		}
 		return jumunList;
 	} 
+	
+	//admin
+	//selectJumunCount(String search, String keyword)
+	public int selectJumunCount(String search, String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			con=getConnection();
+
+			if(keyword.equals("")) {//검색 기능을 사용하지 않은 경우 - 삭제글은 검색되지 않도록
+				String sql="select count(*) from jumun "; // where j_status<>1은 우선 예외 0번이 기본.
+				pstmt=con.prepareStatement(sql);
+			} else {//검색 기능을 사용한 경우 - 삭제글은 검색되지 않도록
+				String sql="select count(*) from jumun where j_id like '%'||?||'%'";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			}
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectjumunCount() 메서드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return count;
+	}
+	
+	//admin
+	//selectJumunList(int startRow, int endRow, String search, String keyword)
+	public List<JumunDTO> selectJumunList(int startRow, int endRow, String search, String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<JumunDTO> jumunList = new ArrayList<>();
+		try {
+			con=getConnection();
+                   
+			//동적 SQL(Dynamic SQL)
+			if(keyword.equals("")) { //검색 기능을 사용하지 않은 경우 - 삭제글은 검색되지 않도록
+				String sql="select * from (select rownum rn, temp.* from (select * from jumun " //where j_status<>1
+						+ "order by j_no desc)temp) where rn between ? and ?";	
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1,startRow);
+				pstmt.setInt(2,endRow);
+			}
+		
+			else { //검색 기능을 사용한 경우 - 삭제글은 검색되지 않도록
+				String sql="select * from (select rownum rn, temp.* from (select * from jumun where j_id like '%'||?||'%' "// and j_status<>1
+						+ "order by j_no desc)temp) where rn between ? and ?" ;
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2,startRow);
+				pstmt.setInt(3,endRow);			
+			}
+       
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				JumunDTO jumun=new JumunDTO();
+				jumun.setjNo(rs.getInt("j_no"));
+				jumun.setjPno(rs.getInt("j_pno"));
+				jumun.setjId(rs.getString("j_id"));
+				jumun.setjNum(rs.getInt("j_num"));
+				jumun.setjTp(rs.getInt("j_tp"));
+				jumun.setjDate(rs.getString("j_date"));
+				jumun.setjStatus(rs.getInt("j_status"));
+				jumun.setjJname(rs.getString("j_jname"));
+				jumun.setjPhone(rs.getString("j_phone"));
+				jumun.setjPostcode(rs.getString("j_postcode"));
+				jumun.setjOaddr1(rs.getString("j_oaddr1"));
+				jumun.setjOaddr2(rs.getString("j_oaddr2"));
+				jumun.setjOmesg(rs.getString("j_omesg"));
+				jumun.setjOpay(rs.getString("j_opay"));
+				jumun.setjBno(rs.getInt("j_Bno"));
+				jumunList.add(jumun);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("[에러]selectjumunList() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return jumunList;	
+	}	
 }

@@ -277,4 +277,162 @@ public class NoticeDAO extends JdbcDAO {
 		return rows;
 	}
 	
+	//admin
+	//selectNoticeList(int startRow, int endRow, String search, String keyword,int nStatus)
+	public List<NoticeDTO> selectNoticeList(int startRow, int endRow, String search, String keyword,int nStatus) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<NoticeDTO> noticeList = new ArrayList<NoticeDTO>();
+		try {
+			con=getConnection();
+	        if(keyword.equals("")) {
+			//동적 SQL(Dynamic SQL)
+			if(nStatus==0) {  
+				String sql="select * from (select rownum rn, temp.* from "
+						+ "(select n_code,n_id,h_name,n_content,n_date,n_look,n_status,n_image,n_title "
+						+ "from notice join hewon on notice.n_id=hewon.h_id and n_status=0  "
+						+ "order by n_code desc)temp) where rn between ? and ?";	
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1,startRow);
+				pstmt.setInt(2,endRow);
+			} 
+			else if(nStatus==1) {  
+				String sql="select * from (select rownum rn, temp.* from "
+						+ "(select n_code,n_id,h_name,n_content,n_date,n_look,n_status,n_image,n_title "
+						+ "from notice join hewon on notice.n_id=hewon.h_id and n_status=1 "
+						+ "order by n_code desc)temp) where rn between ? and ?";	
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1,startRow);
+				pstmt.setInt(2,endRow);
+			} 
+			
+			
+			else if(nStatus==10) {  
+				String sql="select * from (select rownum rn, temp.* from "
+						+ "(select n_code,n_id,h_name,n_content,n_date,n_look,n_status,n_image,n_title "
+						+ "from notice join hewon on notice.n_id=hewon.h_id "
+						+ "order by n_code desc)temp) where rn between ? and ?";	
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1,startRow);
+				pstmt.setInt(2,endRow);
+			} 
+	        }
+			else {
+				//동적 SQL(Dynamic SQL)
+				if(nStatus==0) {  
+					String sql="select * from (select rownum rn, temp.* from "
+							+ "(select n_code,n_id,h_name,n_content,n_date,n_look,n_status,n_image,n_title "
+							+ "from notice join hewon on notice.n_id=hewon.h_id and n_status=0 and n_id like '%'||?||'%' "
+							+ "order by n_code desc)temp) where rn between ? and ?";	
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1,keyword);
+					pstmt.setInt(2,startRow);
+					pstmt.setInt(3,endRow);
+				} 
+				else if(nStatus==1) {  
+					String sql="select * from (select rownum rn, temp.* from "
+							+ "(select n_code,n_id,h_name,n_content,n_date,n_look,n_status,n_image,n_title "
+							+ "from notice join hewon on notice.n_id=hewon.h_id and n_status=1 and n_id like '%'||?||'%'"
+							+ "order by n_code desc)temp) where rn between ? and ?";	
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1,keyword);
+					pstmt.setInt(2,startRow);
+					pstmt.setInt(3,endRow);
+				} 
+				
+				
+				else if(nStatus==10) {  
+					String sql="select * from (select rownum rn, temp.* from "
+							+ "(select n_code,n_id,h_name,n_content,n_date,n_look,n_status,n_image,n_title "
+							+ "from notice join hewon on notice.n_id=hewon.h_id  and n_id like '%'||?||'%'"
+							+ "order by n_code desc)temp) where rn between ? and ?";	
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1,keyword);
+					pstmt.setInt(2,startRow);
+					pstmt.setInt(3,endRow);
+				} 
+		        
+	     
+			}
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				NoticeDTO notice = new NoticeDTO();
+				notice.setnCode(rs.getInt("n_code"));
+				notice.setnId(rs.getString("n_id"));
+				notice.setnWriter(rs.getString("h_name"));
+				notice.setnContent(rs.getString("n_content"));
+				notice.setnDate(rs.getString("n_date"));
+				notice.setnLook(rs.getInt("n_look"));
+				notice.setnStatus(rs.getInt("n_status"));
+				notice.setnImage(rs.getString("n_image"));
+				notice.setnTitle(rs.getString("n_title"));
+				noticeList.add(notice);  //List 객체의 요소로 추가 반드시
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectNoticeList() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return noticeList;	
+	}
+	
+	//admin
+	//selectNoticeCount(String search, String keyword,int nStatus) 
+	public int selectNoticeCount(String search, String keyword,int nStatus) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			con=getConnection();
+			if(keyword.equals("")) {
+			if(nStatus==1) {
+				String sql="select count(*) from notice where n_Status=1";
+				pstmt=con.prepareStatement(sql);
+				
+			} 
+			else if(nStatus==0){
+				String sql="select count(*) from notice where n_Status=0";
+				pstmt=con.prepareStatement(sql);
+			} 
+			else {
+				String sql="select count(*) from notice ";
+				pstmt=con.prepareStatement(sql);
+			}
+			}
+			else {
+				if(nStatus==1) {
+					String sql="select count(*) from notice where n_Status=1 and n_id like '%'||?||'%'";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				} 
+				else if(nStatus==0){
+					String sql="select count(*) from notice where n_Status=0 and n_id like '%'||?||'%'";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				} 
+				else {
+					String sql="select count(*) from notice where n_id like '%'||?||'%'";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				}
+				}
+			
+			
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectNoticeCount() 메서드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return count;
+	}
+	
 }
