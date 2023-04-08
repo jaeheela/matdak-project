@@ -1,4 +1,4 @@
-<%@page import="com.matdak.dao.HewonDAO"%>
+<%@page import="xyz.itwill.dao.HewonDAO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,9 +8,9 @@
 <%-- => 회원정보에서 [상태]를 변경한 경우 회원상태 변경페이지(Hewon_status_action.jsp)로 이동 - 아이디와 회원상태 전달 --%>    
 <%@include file="/security/admin_check.jspf" %>   
 <%
-   //Hewon 테이블에 저장된 모든 회원정보를 검색하여 반환하는 DAO 클래스의 메소드 호출
-      	List<HewonDTO> HewonList=HewonDAO.getDAO().selectHewonList();
-   %>
+	//Hewon 테이블에 저장된 모든 회원정보를 검색하여 반환하는 DAO 클래스의 메소드 호출
+	List<HewonDTO> HewonList=HewonDAO.getDAO().selectHewonList();
+%>
 <style type="text/css">
 table {
 	margin: 0 auto;
@@ -53,9 +53,7 @@ th {
 			<th>상태</th>
 		</tr>
 		
-		<%
-				for(HewonDTO Hewon:HewonList) {
-				%>
+		<% for(HewonDTO Hewon:HewonList) { %>
 		<tr>
 			<td class="Hewon_check">
 				<% if(Hewon.gethStatus()==9) { %>

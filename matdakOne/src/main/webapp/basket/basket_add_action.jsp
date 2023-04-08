@@ -1,5 +1,5 @@
-<%@page import="com.matdak.dao.CartDAO"%>
-<%@page import="com.matdak.dto.BasketDTO"%>
+<%@page import="xyz.itwill.dao.BasketDAO"%>
+<%@page import="xyz.itwill.dto.BasketDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 장바구니에 상품 추가하는 기능을 하는 페이지 --%>
@@ -9,7 +9,7 @@
 <%@include file="/security/login_check.jspf" %>
 
 <%
-//비정상적인 요청에 대한 처리 
+	  //비정상적인 요청에 대한 처리 
 	    if(request.getMethod().equals("GET")){
 	    out.println("<script type='text/javascript'>");
 	    out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
@@ -36,7 +36,7 @@
 		
 	
 		//basket 객체를 전달받아 BOARD 테이블에 삽입하는 DAO 클래스의 메소드 호출
-		CartDAO.getDAO().insertBasket(basket);
+		BasketDAO.getDAO().insertBasket(basket);
 		
 		
 		
@@ -44,5 +44,6 @@
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=basket&work=basket_list';");  // 장바구니 목록 페이지로 이동
 		out.println("</script>");
+
 %>
 

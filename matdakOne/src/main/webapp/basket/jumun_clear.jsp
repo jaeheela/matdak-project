@@ -1,12 +1,12 @@
-<%@page import="com.matdak.dao.JumunDAO"%>
-<%@page import="com.matdak.dto.JumunDTO"%>
+<%@page import="xyz.itwill.dao.JumunDAO"%>
+<%@page import="xyz.itwill.dto.JumunDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%--로그인회원과 관리자만 권한 --%>
 <%@include file="/security/login_check.jspf"%>
 
 <%
-//아이디를 전달받아 주문정보를 검색해 반환하는 dao 메소드 호출 
+	//아이디를 전달받아 주문정보를 검색해 반환하는 dao 메소드 호출 
 	String jid = loginHewon.gethId();
 	JumunDTO jumun = JumunDAO.getDAO().selectJumun(jid);
 %>

@@ -1,14 +1,15 @@
-<%@page import="com.matdak.entity.Jumun"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="com.matdak.dao.ProductDAO"%>
+     <%@page import="java.text.DecimalFormat"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.matdak.dao.CartDAO"%>
+<%@page import="xyz.itwill.dao.BasketDAO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
+<%@page import="xyz.itwill.dto.BasketDTO"%>
 <%@page import="java.util.List"%>
+<%@page import="xyz.itwill.dto.JumunDTO"%>
+<%@page import="xyz.itwill.dao.JumunDAO"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/mypage/mypage.css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/mypage/mypage_main.css">
-
 <!-- 마이페이지 - 구매내역 -->
 <%-- 회원정보(회원 아이디)를 전달받아 테이블에 저장된 해당 아이디로 구매한 제품정보를 검색 - List --%>
 <%-- => 만약 구매한 제품정보가 없다면 메세지 출력 --%>
@@ -16,9 +17,13 @@
 <%@include file="/security/login_url.jspf"%>
 
 <%
-List<JumunDTO> jumunList = JumunDAO.getDAO().selectJumunList(loginHewon.gethId());
+	List<JumunDTO> jumunList = JumunDAO.getDAO().selectJumunList(loginHewon.gethId());
+	
+	
 %>
 
+<link rel="stylesheet" type="text/css" href="mypage/mypage.css">
+<link rel="stylesheet" type="text/css" href="mypage/mypage_main.css">
 
 <!DOCTYPE html>
 <html>
@@ -35,7 +40,7 @@ List<JumunDTO> jumunList = JumunDAO.getDAO().selectJumunList(loginHewon.gethId()
 		<!-- 마이페이지 닉네임 -->
 		<div class="mypage_head">
 			<%-- <div class="mypage_head_id"><%=loginMember.gethId() %></div> --%>
-			<div class="mypage_head_id"><%=loginHewon.gethId()%></div>
+			<div class="mypage_head_id"><%= loginHewon.gethId()%></div>
 		</div>
 	</div>
 	
@@ -65,16 +70,10 @@ $(".mypage_head_list ul li").click(function(){
 			<span class="all_buy_list select_tab">전체구매내역</span>
 		</div>
 		
-		<%
-			if(jumunList.isEmpty()) {
-		%>
-			<div style="text-align: center; margin: 50px 0 0 0; font-weight: 530;">구매내역이 존재하지 않습니다.
-		<%
-		} else {
-		%>
-			<%
-			for(Jumun jumun:jumunList) {
-			%>
+		<% if(jumunList.isEmpty()) { %>
+		<div style="text-align: center; margin: 50px 0 0 0; font-weight: 530;">구매내역이 존재하지 않습니다.
+		<% } else { %>
+			<% for(JumunDTO jumun:jumunList) { %>
 			<!-- buy_list content -->
 			<div class="buy_list_wrapper">
 				<div class="buy_list_box">
@@ -88,10 +87,10 @@ $(".mypage_head_list ul li").click(function(){
 						<tbody>
 						<tr class="buy_list_title">
 							<td class="buy_list_left_top">
-								<span style="font-weight: 500; font-size: 17px;"> 주문날짜 </span>
+								<span style="font-weight: 500; font-size: 17px;"> <%=jumun.getjDate() %> </span>
 							</td>
 							<td style="text-indent: 20px;">
-								<span style="color: #999; font-weight: 500; font-size: 16px;">주문번호 </span> 
+								<span style="color: #999; font-weight: 500; font-size: 16px;">주문번호 <%=jumun.getjNo() %></span> 
 							</td>
 						</tr>
 						<tr class="buy_list_content_box">

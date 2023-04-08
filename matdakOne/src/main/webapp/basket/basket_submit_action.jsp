@@ -1,12 +1,12 @@
-<%@page import="com.matdak.dao.JumunDAO"%>
-<%@page import="com.matdak.dao.ProductDAO"%>
+<%@page import="xyz.itwill.dao.JumunDAO"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.matdak.dto.JumunDTO"%>
+<%@page import="xyz.itwill.dto.JumunDTO"%>
 <%@page import="java.util.Date"%>
-<%@page import="com.matdak.dao.CartDAO"%>
-<%@page import="com.matdak.dto.BasketDTO"%>
-<%@page import="com.matdak.dto.Product"%>
+<%@page import="xyz.itwill.dao.BasketDAO"%>
+<%@page import="xyz.itwill.dto.BasketDTO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -16,8 +16,8 @@
 <%--로그인 사용자와 관리자만 사용 가능 --%>
 <%@include file="/security/login_check.jspf"%>
 
-<%
-//비정상적인 요청 
+<% 
+	//비정상적인 요청 
 	if(request.getMethod().equals("GET")){
 	   out.println("<script type='text/javascript'>");
 	   out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
@@ -32,8 +32,8 @@
 	
 	
 	//장바구니 정보 저장 
-	List<BasketDTO> basketList =  CartDAO.getDAO().selectBasketList(loginHewon.gethId());
-	List<Product> productList = new ArrayList<Product>();
+	List<BasketDTO> basketList =  BasketDAO.getDAO().selectBasketList(loginHewon.gethId());
+	List<ProductDTO> productList = new ArrayList<ProductDTO>();
 	List<Integer>qtyList = new ArrayList<Integer>();
 	int totalSum = 0;
 
@@ -58,7 +58,7 @@
 	//jumunDTO 객체를 생성하여 전달값으로 필드값 변경 
 	for(BasketDTO basket:basketList){
 		 int pNo = basket.getbPno();
-		 Product product = ProductDAO.getDAO().selectProduct(pNo);
+		 ProductDTO product = ProductDAO.getDAO().selectProduct(pNo);
 		 productList.add(product);
 		 qtyList.add(basket.getbNum());
 		  totalSum = product.getpPrice() * basket.getbNum();
@@ -92,6 +92,10 @@
 	out.println("<script type='text/javascript'>");
 	out.println("location.href='" + request.getContextPath() + "/index.jsp?workgroup=basket&work=jumun_clear'");
 	out.println("</script>");
+
+	
+	
+	
 %>
 
 

@@ -1,10 +1,10 @@
-<%@page import="com.matdak.dao.CartDAO"%>
-<%@page import="com.matdak.dto.HewonDTO"%>
-<%@page import="com.matdak.dto.BasketDTO"%>
+<%@page import="xyz.itwill.dao.BasketDAO"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
+<%@page import="xyz.itwill.dto.BasketDTO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%
-HewonDTO loginHewon  =(HewonDTO)session.getAttribute("loginHewon");
+	HewonDTO loginHewon  =(HewonDTO)session.getAttribute("loginHewon");
 
 	//전달값을 반환받아 저장 (상품 번호, 수량)
 	int bNum=Integer.parseInt(request.getParameter("result"));   //수량정보 product 테이블에 없음 
@@ -24,7 +24,7 @@ HewonDTO loginHewon  =(HewonDTO)session.getAttribute("loginHewon");
 	
 
 	//basket 객체를 전달받아 BOARD 테이블에 삽입하는 DAO 클래스의 메소드 호출
-	CartDAO.getDAO().insertBasket(basket);
+	BasketDAO.getDAO().insertBasket(basket);
 
 
 	out.println("<script type='text/javascript'>");

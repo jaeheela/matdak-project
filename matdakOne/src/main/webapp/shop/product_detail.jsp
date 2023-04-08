@@ -1,11 +1,11 @@
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="com.matdak.dao.ProductDAO"%>
-<%@page import="com.matdak.dto.Product"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 상품코드를 전달받아 PRODUCT 테이블에 저장된 모든 제품정보를 검색하여 클라이언트에게 전달하는 JSP 문서 --%>
 <%
-//비정상적인 요청에 대한 응답 처리
+	//비정상적인 요청에 대한 응답 처리
 	if(request.getParameter("pNo")==null) {
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';"); 
@@ -21,7 +21,7 @@
 	String keyword=request.getParameter("keyword");
 	
 	//제품번호를 전달받아 PRODUCT 테이블에 저장된 해당 제품번호의 제품정보를 검색하여 반환하는 DAO 클래스의 메소드 호출
-	Product product=ProductDAO.getDAO().selectProduct(pNo);
+	ProductDTO product=ProductDAO.getDAO().selectProduct(pNo);
 	
 	//검색된 상품정보가 없는 경우 - 비정상적인 요청
 	if(product==null) {

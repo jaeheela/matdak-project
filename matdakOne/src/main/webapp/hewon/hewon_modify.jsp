@@ -1,17 +1,25 @@
-<%@page import="com.matdak.util.Utility"%>
+<%@page import="xyz.itwill.util.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- 비밀번호를 전달받아 로그인 사용자의 비밀번호와 비교하여 같은 경우 로그인 사용자의
+정보를 입력태그의 초기값으로 설정하고 변경값을 입력받기 위한 JSP 문서 --%>
+<%-- => 로그인 사용자만 요청 가능한 JSP 문서 --%>
+<%-- => [회원변경]을 클릭한 경우 회원정보 변경페이지(member_modify_action.jsp)로 이동 - 입력값 전달 --%>
 <%@include file="/security/login_check.jspf" %>
 <%
+	//비정상적인 요청에 대한 응답 처리
 	if(request.getMethod().equals("GET")) {
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
 		out.println("</script>");
 		return;
 	}
-
-	String hPw=Utility.encrypt(request.getParameter("hPw"));
-	if(!hPw.equals(loginHewon.gethPw())) {
+	//전달값을 반환받아 저장
+	String pw=Utility.encrypt(request.getParameter("pw"));
+	
+	//전달된 비밀번호가 로그인 사용자의 비밀번호와 같지 않은 경우 비밀번호 입력페이지
+	//(password_confirm.jsp)로 이동
+	if(!pw.equals(loginHewon.gethPw())) {
 		session.setAttribute("message", "비밀번호가 맞지 않습니다.");
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=hewon&work=password_confirm&action=modify';");
@@ -59,28 +67,28 @@ legend {
 	background: aqua;
 }
 </style>
-<form id="join" action="index.jsp?workgroup=hewon_action&work=hewon_modify_action" method="post">
+<form id="join" action="index.jsp?workgroup=hewon&work=hewon_modify_action" method="post">
 <fieldset>
 	<legend>회원정보변경</legend>
 	<ul>
 		<li>
 			<label for="id">아이디</label>
-			<input type="text" name="hId" id="id" value="<%=loginHewon.gethId()%>" readonly="readonly">
+			<input type="text" name="id" id="id" value="<%=loginHewon.gethId()%>" readonly="readonly">
 		</li>
 		<li>
 			<label for="pw">비밀번호</label>
-			<input type="password" name="hPw" id="pw">
+			<input type="password" name="pw" id="pw">
 			<span style="color: red;">비밀번호를 변경하지 않을 경우 입력하지 마세요.</span>
 			<div id="pwRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
 		</li>
 		<li>
 			<label for="name">이름</label>
-			<input type="text" name="hName" id="name" value="<%=loginHewon.gethName()%>" >
+			<input type="text" name="name" id="name" value="<%=loginHewon.gethName()%>" >
 			<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
 		</li>
 		<li>
 			<label for="email">이메일</label>
-			<input type="text" name="hEmail" id="email" value="<%=loginHewon.gethEmail()%>" >
+			<input type="text" name="email" id="email" value="<%=loginHewon.gethEmail()%>" >
 			<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
 			<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
 		</li>
@@ -102,19 +110,18 @@ legend {
 		</li>
 		<li>
 			<label>우편번호</label>
-			<input type="text" name="hPostcode" id="postcode" size="7" value="<%=loginHewon.gethPostcode()%>"  readonly="readonly">
+			<input type="text" name="postcode" id="postcode" size="7" value="<%=loginHewon.gethPostcode()%>"  readonly="readonly">
 			<span id="postSearch">우편번호 검색</span>
 			<div id="postcodeMsg" class="error">우편번호를 입력해 주세요.</div>
 		</li>
 		<li>
 			<label for="addr1">기본주소</label>
-			<% String[] addr=loginHewon.gethAddr().split("%%%%%"); %>
-			<input type="text" name="addr1" id="addr1" size="50" value="<%=addr[0]%>"  readonly="readonly">
+			<input type="text" name="addr1" id="addr1" size="50" value="<%=loginHewon.gethAddr1()%>"  readonly="readonly">
 			<div id="addr1Msg" class="error">기본주소를 입력해 주세요.</div>
 		</li>
 		<li>
 			<label for="addr2">상세주소</label>
-			<input type="text" name="addr2" id="addr2" size="50" value="<%=addr[1]%>" >
+			<input type="text" name="addr2" id="addr2" size="50" value="<%=loginHewon.gethAddr2()%>" >
 			<div id="addr2Msg" class="error">상세주소를 입력해 주세요.</div>
 		</li>
 	</ul>

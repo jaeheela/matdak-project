@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- 사용자로부터 회원정보를 입력받기 위한 JSP 문서 --%>
+<%-- => [회원가입]을 클릭한 경우 회원정보 삽입페이지(_join_action.jsp)로 이동 - 입력값 전달 --%>
+<%-- => [아이디 중복 검사]를 클릭한 경우 팝업창을 실행하여 아이디 중복 검사페이지(id_check.jsp)를 요청 - 아이디 전달 --%>
+<%-- => [우편번호 검색]를 클릭한 경우 팝업창을 실행하여 우편번호 검색페이지(post_search.jsp)를 요청 --%>    
 <style type="text/css">
+
 .id-box{
 	width: 100%;
 
 }
+
 #join .id-fieldset{
 	display: flex;
 	flex-direction: column;
@@ -147,7 +153,8 @@ legend {
 </style>
 
 <div class="id-box">
-	<form id="join" action="index.jsp?workgroup=hewon_action&work=hewon_join_action" method="post">
+	<form id="join" action="index.jsp?workgroup=hewon&work=hewon_join_action" method="post">
+		<%-- 아이디 사용 여부를 구분하기 위한 값을 저장하는 입력태그 --%>
 		<%-- => 0 : 아이디 중복 검사 미실행 - 아이디 사용 불가능 --%>
 		<%-- => 1 : 아이디 중복 검사 실행 - 아이디 사용 가능 --%>
 		<input type="hidden" id="idCheckResult" value="0">
@@ -155,7 +162,8 @@ legend {
 			<legend>회원가입</legend>
 			<ul>
 				<li>
-					<input type="text" name="hId" id="id" maxlength="20" class="i_s_border" placeholder="아이디" required>
+					<input type="text" name="id" id="id" maxlength="20" class="i_s_border" 
+				placeholder="아이디" required="">
 					<div class="check">
 					<span id="idCheck" style="display: inline-block; margin-top: 8px;">아이디 중복 검사</span>
 					</div>
@@ -165,23 +173,27 @@ legend {
 				</li>
 				<li>
 				
-					<input type="password" name="hPw" id="pw" maxlength="20" class="i_s_border" placeholder="비밀번호" required>
+					<input type="password" name="pw" id="pw" maxlength="20" class="i_s_border" 
+				placeholder="비밀번호" required="">
 					<div id="pwMsg" class="error">비밀번호를 입력해 주세요.</div>
 					<div id="pwRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
 				</li>
 				<li>
-					<input type="password" id="repw" maxlength="20" class="i_s_border" placeholder="비밀번호 확인" required>
+					<input type="password" name="repw" id="repw" maxlength="20" class="i_s_border" 
+				placeholder="비밀번호 확인" required="">
 					<div id="repwMsg" class="error">비밀번호 확인을 입력해 주세요.</div>
 					<div id="repwMatchMsg" class="error">비밀번호와 비밀번호 확인이 서로 맞지 않습니다.</div>
 				</li>
 				<li>
 				
-					<input type="text" name="hName" id="name" maxlength="20" class="i_s_border" placeholder="이름" required>
+					<input type="text" name="name" id="name" maxlength="20" class="i_s_border" 
+				placeholder="이름" required="">
 					<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
 				</li>
 				<li>
 				
-					<input type="text" name="hEmail" id="email" maxlength="20" class="i_s_border" placeholder="이메일" required>
+					<input type="text" name="email" id="email" maxlength="20" class="i_s_border" 
+				placeholder="이메일" required="">
 					<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
 					<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
 				</li>
@@ -195,14 +207,17 @@ legend {
 						<option value="018">&nbsp;018&nbsp;</option>
 						<option value="019">&nbsp;019&nbsp;</option>
 					</select>
-					- <input type="text" name="phone2" id="phone2" size="4" maxlength="4" class="i_s_border2" placeholder="0000" required>
-					- <input type="text" name="phone3" id="phone3" size="4" maxlength="4"  class="i_s_border2" placeholder="0000" required>
+					- <input type="text" name="phone2" id="phone2" size="4" maxlength="4" class="i_s_border2" 
+				placeholder="0000" required="">
+					- <input type="text" name="phone3" id="phone3" size="4" maxlength="4"  class="i_s_border2" 
+				placeholder="0000" required="">
 					<div id="phoneMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
 					<div id="phoneRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
 				</li>
 				<li>
 				
-					<input type="text" name="hPostcode" id="postcode" size="7" readonly="readonly"  class="i_s_border" placeholder="우편번호" required>
+					<input type="text" name="postcode" id="postcode" size="7" readonly="readonly"  class="i_s_border" 
+				placeholder="우편번호" required="">
 					<div class="check">
 					<span id="postSearch" style="display: inline-block; margin-top: 8px;">우편번호 검색</span>
 					</div>
@@ -210,12 +225,14 @@ legend {
 				</li>
 				<li>
 			
-					<input type="text" name="addr1" id="addr1" size="50" readonly="readonly"  class="i_s_border" placeholder="기본주소" required>
+					<input type="text" name="addr1" id="addr1" size="50" readonly="readonly"  class="i_s_border" 
+				placeholder="기본주소" required="">
 					<div id="addr1Msg" class="error">기본주소를 입력해 주세요.</div>
 				</li>
 				<li>
 			
-					<input type="text" name="addr2" id="addr2" size="50"  class="i_s_border" placeholder="상세주소" required>
+					<input type="text" name="addr2" id="addr2" size="50"  class="i_s_border" 
+				placeholder="상세주소" required="">
 					<div id="addr2Msg" class="error">상세주소를 입력해 주세요.</div>
 				</li>
 			</ul>
@@ -232,7 +249,6 @@ $("#join").submit(function() {
 	var submitResult=true;
 	
 	$(".error").css("display","none");
-	
 	var idReg=/^[a-zA-Z]\w{5,19}$/g;
 	if($("#id").val()=="") {
 		$("#idMsg").css("display","block");
@@ -240,7 +256,7 @@ $("#join").submit(function() {
 	} else if(!idReg.test($("#id").val())) {
 		$("#idRegMsg").css("display","block");
 		submitResult=false;
-	} else if($("#idCheckResult").val()=="0") {
+	} else if($("#idCheckResult").val()=="0") {//아이디 중복 검사를 실행하지 않은 경우
 		$("#idCheckMsg").css("display","block");
 		submitResult=false;
 	}
@@ -302,8 +318,8 @@ $("#join").submit(function() {
 	
 	return submitResult;
 });
-
 $("#idCheck").click(function() {
+	//아이디 관련 에러메세지가 보여지지 않도록 설정
 	$("#idMsg").css("display","none");
 	$("#idRegMsg").css("display","none");
 	
@@ -315,12 +331,23 @@ $("#idCheck").click(function() {
 		$("#idRegMsg").css("display","block");
 		return;
 	}
-	window.open("<%=request.getContextPath()%>/hewon/id_check.jsp?id="+$("#id").val(),"idcheck","width=450,height=130,left=700,top=400");
+	
+	//팝업창 실행하여 아이디 중복 검사 페이지(id_check.jsp) 요청 - 아이디 전달
+	window.open("<%=request.getContextPath()%>/hewon/id_check.jsp?id="+$("#id").val()
+			,"idcheck","width=450,height=130,left=700,top=400");
 });
-
+//입력태그(아이디)의 입력값이 변경된 경우 호출될 이벤트 처리 함수 등록
 $("#id").change(function() {
-	$("#idCheckResult").val("0");//입력태그(검사결과)의 입력값 변경 - 아이디 중복 검사 미실행으로 설정
+	//입력태그(검사결과)의 입력값 변경 - 아이디 중복 검사 미실행으로 설정
+	$("#idCheckResult").val("0");
 });
+/*
+$("#postSearch").click(function() {
+	//팝업창 실행하여 우편번호 검색페이지(post_search.jsp) 요청
+	window.open("<%=request.getContextPath()%>//post_search.jsp","postseatch"
+			,"width=600,height=600,left=600,top=250");
+});
+*/
 </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

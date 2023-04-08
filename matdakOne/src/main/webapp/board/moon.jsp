@@ -1,13 +1,14 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.matdak.dto.HewonDTO"%>
-<%@page import="com.matdak.dto.MoonDTO"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
+<%@page import="xyz.itwill.dto.MoonDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.matdak.dao.MoonDAO"%>
+<%@page import="xyz.itwill.dao.MoonDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-String search=request.getParameter("search");
+
+	String search=request.getParameter("search");
 	if(search==null){
 		search="";
 	}	
@@ -110,7 +111,7 @@ td.review-title{
 </style>
 <!-- 문의사항 title -->
 	<div class="customer-head-title">
-		<div class="customer-sub-title">문의사항 <span style="color: red;">(<%=totalMoon%>)</span></div>
+		<div class="customer-sub-title">문의사항 <span style="color: red;">(<%=totalMoon %>)</span></div>
 		<div class="customer-sub-content">
 		<p style="text-align: left; line-height: 1.5em; font-size:0.7rem;">
 		· 상품문의에서는 상품과 무관한 요청은 처리되지 않습니다.<br>
@@ -119,74 +120,48 @@ td.review-title{
 	</div>
 	
 <%--로그인 사용자가 문의사항을 요청한 경우 --%>	
-<%
-	if(loginHewon!=null){
-	%>
+<%if(loginHewon!=null){ %>
 <div style="text-align: right;">
 	<button type="button" onclick="location.href='<%=request.getContextPath()%>/index.jsp?workgroup=board&work=moon_write'">글쓰기</button>
 </div>
-<%
-}
-%>
+<%} %>
 
 <%--페이징 처리 --%>
 <%
-int blockSize=5;
+	int blockSize=5;
 	int startPage=(pageNum-1)/blockSize*blockSize+1;
 	int endPage=startPage+blockSize-1;
 	if(endPage>totalPage)endPage=totalPage;
 %>
 <%-- 페이징 처리--%>
 <div class="moon-paging-box">
-<%
-if(startPage>blockSize) {
-%>
+<% if(startPage>blockSize) { %>
 	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=moon&pageNum=<%=startPage-blockSize%>&search=<%=search%>&keyword=<%=keyword%>">[이전]</a>
-<%
-} else{
-%>
+<% } else{ %>
 	<span style="color: gray;">[이전]</span>
-<%
-}
-%>
+<%} %>
 
-<%
-for(int i=startPage; i<=endPage; i++) {
-%>
-	<%
-	if(pageNum!=i){
-	%>
-	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=moon&pageNum=<%=i%>&search=<%=search%>&keyword=<%=keyword%>">[<%=i%>]</a>
-	<%
-	} else {
-	%>
-		<span style="font-weight: 900">[<%=i%>]</span>
-	<%
-	}
-	%>
-<%
-}
-%>
+<%for(int i=startPage; i<=endPage; i++) {%>
+	<% if(pageNum!=i){%>
+	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=moon&pageNum=<%=i%>&search=<%=search%>&keyword=<%=keyword%>">[<%=i %>]</a>
+	<%} else {%>
+		<span style="font-weight: 900">[<%=i %>]</span>
+	<%} %>
+<%} %>
 
-<%
-if(endPage!=totalPage){
-%>
+<%if(endPage!=totalPage){ %>
 	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=moon&pageNum=<%=startPage+blockSize%>&search=<%=search%>&keyword=<%=keyword%>">[다음]</a>
-<%
-} else{
-%>
+<%} else{ %>
 	<span style="color: gray;">[다음]</span>
-<%
-}
-%>
+<%} %>
 </div>
 
 <%--서칭처리 --%>
 <form id="searchForm" action="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=moon" method="post">
 	<select name="search">
-		<option value="h_name" <%if(search.equals("h_name")){%> selected="selected" <%}%>>&nbsp;작성자&nbsp;</option>
-		<option value="m_title" <%if(search.equals("m_title")){%> selected="selected" <%}%>>&nbsp;제목&nbsp;</option>
-		<option value="m_content" <%if(search.equals("m_content")){%> selected="selected" <%}%>>&nbsp;내용&nbsp;</option>
+		<option value="h_name" <%if(search.equals("h_name")){ %> selected="selected" <%} %>>&nbsp;작성자&nbsp;</option>
+		<option value="m_title" <%if(search.equals("m_title")){ %> selected="selected" <%} %>>&nbsp;제목&nbsp;</option>
+		<option value="m_content" <%if(search.equals("m_content")){ %> selected="selected" <%} %>>&nbsp;내용&nbsp;</option>
 	</select>		
 	<input type="text" name="keyword" value="<%=keyword%>" placeholder="문의사항을 검색하세요.">
 	<button type="submit">검색</button>
@@ -205,20 +180,14 @@ if(endPage!=totalPage){
 	
 	
 	<%-- 검색된 문의사항이 없을 경우 --%>
-	<%
-	if(totalMoon==0){
-	%> 
+	<%if(totalMoon==0){%> 
 	<tr>
 		<td colspan="5">검색된 문의사항이 없습니다.</td>
 	</tr>
 	
 	<%-- 검색된 문의사항이 있을 경우 --%>
-	<%
-	} else {
-	%>
-	<%
-	for(MoonDTO moon:moonList) {
-	%> 
+	<%} else { %>
+	<% for(MoonDTO moon:moonList) {%> 
 		<tr>
 			<%--1. 일련번호 출력 --%>
 			<td><%=printNum %></td>

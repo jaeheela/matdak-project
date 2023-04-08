@@ -1,8 +1,8 @@
-<%@page import="com.matdak.dao.AdminPDAO"%>
+<%@page import="xyz.itwill.dao.AdminPDAO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.awt.Image"%>
-<%@page import="com.matdak.dao.ProductDAO"%>
-<%@page import="com.matdak.dto.Product"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 제품번호를 전달받아 PRODUCT 테이블에 저장된 해당 제품번호의 제품정보를 검색하여 
@@ -11,7 +11,7 @@
 <%-- => [제품정보변경]을 클릭한 경우 제품정보 입력페이지(product_modify.jsp)로 이동 - 제품번호 전달 --%>    
 <%@include file="/security/admin_check.jspf" %>
 <%
-if(request.getParameter("pNo")==null) {
+	if(request.getParameter("pNo")==null) {
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
 		out.println("</script>");
@@ -20,7 +20,7 @@ if(request.getParameter("pNo")==null) {
 
 	int pNo=Integer.parseInt(request.getParameter("pNo"));
 	
-	Product product=ProductDAO.getDAO().selectProduct(pNo);
+	ProductDTO product=ProductDAO.getDAO().selectProduct(pNo);
 	
 	if(product==null) {
 		out.println("<script type='text/javascript'>");

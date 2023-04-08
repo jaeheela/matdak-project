@@ -1,11 +1,11 @@
-<%@page import="com.matdak.dto.HewonDTO"%>
-<%@page import="com.matdak.dto.NoticeDTO"%>
-<%@page import="com.matdak.dao.NoticeDAO"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
+<%@page import="xyz.itwill.dto.NoticeDTO"%>
+<%@page import="xyz.itwill.dao.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%-- 공지사항 세부 출력페이지 --%>
 <%
-//비정상적인 요청에 대한 응답 처리
+	//비정상적인 요청에 대한 응답 처리
 	if(request.getParameter("nCode")==null){
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
@@ -40,6 +40,7 @@
 	
 	//세션에 저장된 권한 관련 정보를 반환받아 저장
 	HewonDTO loginHewon = (HewonDTO) session.getAttribute("loginHewon");
+
 %>
 <style type="text/css">
 .customer-head-title { text-align: center; padding-bottom: 50px; }

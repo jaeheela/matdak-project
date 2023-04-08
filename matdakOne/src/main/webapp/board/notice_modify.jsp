@@ -1,5 +1,5 @@
-<%@page import="com.matdak.dao.NoticeDAO"%>
-<%@page import="com.matdak.dto.NoticeDTO"%>
+<%@page import="xyz.itwill.dao.NoticeDAO"%>
+<%@page import="xyz.itwill.dto.NoticeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 공지사항 번호를 전달받아 BOARD 테이블에 저장된 해당 번호의 게시글을 검색하여
@@ -9,7 +9,7 @@
 <%-- => 로그인 사용자 중 관리자만 요청 가능한 문서 --%>
 <%@include file="/security/admin_check.jspf" %>
 <%
-//비정상적인 요청에 대한 응답 처리 - 공지사항 번호 없는 경우
+	//비정상적인 요청에 대한 응답 처리 - 공지사항 번호 없는 경우
 	if(request.getParameter("nCode")==null){
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
@@ -38,7 +38,7 @@
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
 		out.println("</script>");
 		return;		
-	}
+	}	
 %>
 <style type="text/css">
 div.content-box{

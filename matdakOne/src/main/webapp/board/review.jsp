@@ -1,15 +1,15 @@
-<%@page import="com.matdak.dao.JumunDAO"%>
-<%@page import="com.matdak.dto.JumunDTO"%>
+<%@page import="xyz.itwill.dao.JumunDAO"%>
+<%@page import="xyz.itwill.dto.JumunDTO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.matdak.dto.HewonDTO"%>
-<%@page import="com.matdak.dto.ReviewDTO"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
+<%@page import="xyz.itwill.dto.ReviewDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.matdak.dao.ReviewDAO"%>
+<%@page import="xyz.itwill.dao.ReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-//검색대상과 검색단어를 반환받아 저장
+	//검색대상과 검색단어를 반환받아 저장
 	String reviewSearch = request.getParameter("reviewSearch");
 	String reviewKeyword = request.getParameter("reviewKeyword");
 	if(reviewSearch==null){
@@ -147,7 +147,7 @@
 	border-radius: 20px;
 }
 
-<%for(ReviewDTO review:reviewList){%>
+<% for(ReviewDTO review:reviewList){ %>
 #review-image-<%=review.getrCode()%> {
 	display: none;
 }
@@ -198,7 +198,7 @@
 
 <!-- 구매후기 title -->
 <div class="customer-head-title">
-	<div class="customer-sub-title">구매후기 <span style="color:red;">(<%=totalReview%>)</span></div>	
+	<div class="customer-sub-title">구매후기 <span style="color:red;">(<%=totalReview %>)</span></div>	
 	<div class="customer-sub-content">
 	<p style="text-align: left; line-height: 1.5em; font-size:0.7rem;">
 	· 맛있닭은 믿을 수 있는 후기관리를 위해 회원으로 가입되신 실제 구매자만 후기를 작성하실 수 있습니다.<br>
@@ -207,37 +207,25 @@
 	</div>
 </div>
 <%
-JumunDTO jumun=null;
+	JumunDTO jumun=null;
 	if(loginHewon!=null){
 		jumun = JumunDAO.getDAO().selectJumun(loginHewon.gethId());		
 	}
 %>
 
-<%
-if(loginHewon==null){
-%>
+<%if(loginHewon==null){%>
 	<div style="font-size: 15px; color: red;">로그인을 해야 구매후기 작성이 가능합니다.</div>
 	<button type="button" id="writeBtn" style="font-size:15px; margin:10px;" onclick="location.href='<%=request.getContextPath()%>/index.jsp?workgroup=hewon&work=hewon_login';">구매후기 작성</button>
-<%
-} else if(jumun==null){
-%>	
+<%} else if(jumun==null){ %>	
 	<div style="font-size: 15px; color: red;">구매후기를 작성할 제품이 없습니다.</div>
 	<button type="button" id="writeBtn" style="font-size:15px; margin:10px;">구매후기 작성</button>
-<%
-} else {
-%>
-	<%
-	if(loginHewon!=null && (loginHewon.gethId().equals(jumun.getjId()) || loginHewon.gethStatus()!=9)){
-	%>
+<% } else { %>
+	<%if(loginHewon!=null && (loginHewon.gethId().equals(jumun.getjId()) || loginHewon.gethStatus()!=9)){ %>
 		<%-- [구매후기 작성]버튼 : 로그인회원 중 구매자이거나 관리자에게만 권한 부여  --%>
 		<div style="font-size: 15px; color: blue;">구매한 제품에 대한 후기를 작성할 수 있습니다.</div>
 		<button type="button" id="writeBtn" style="font-size:15px; margin:10px;" onclick="location.href='<%=request.getContextPath()%>/index.jsp?workgroup=board&work=review_write';">구매후기 작성</button>
-	<%
-	}
-	%>	
-<%
-	}
-	%>	
+	<%} %>	
+<% } %>	
 
 <%-- 서칭 form태그 --%>
 <form action="<%=request.getContextPath()%>/index.jsp" method="get" id="reviewSearchForm">	
@@ -253,19 +241,19 @@ if(loginHewon==null){
 
 	<div class="review-reviewSearchRadio">
 		<label for="review-radio-1">
-		<input type="radio" name="reviewSearch" id="review-radio-1" value="highDate"<%if(reviewSearch.equals("highDate")){%> checked="checked" <%}%>>
+		<input type="radio" name="reviewSearch" id="review-radio-1" value="highDate"<%if(reviewSearch.equals("highDate")){ %> checked="checked" <%}%>>
 			<span style= "font-size: 16px;">&nbsp;최신순&nbsp;&nbsp;</span>
 		</label>
 		<label for="review-radio-2">
-		<input type="radio" name="reviewSearch" id="review-radio-2" value="lowDate" <%if(reviewSearch.equals("lowDate")){%> checked="checked" <%}%>>
+		<input type="radio" name="reviewSearch" id="review-radio-2" value="lowDate" <%if(reviewSearch.equals("lowDate")){ %> checked="checked" <%}%>>
 			<span style= "font-size: 16px;">&nbsp;오래된순&nbsp;&nbsp;</span>
 		</label>
 		<label for="review-radio-3">
-		<input type="radio" name="reviewSearch" id="review-radio-3" value="highStar" <%if(reviewSearch.equals("highStar")){%> checked="checked" <%}%>>
+		<input type="radio" name="reviewSearch" id="review-radio-3" value="highStar" <%if(reviewSearch.equals("highStar")){ %> checked="checked" <%}%>>
 			<span style= "font-size: 16px;">&nbsp;별점 높은순&nbsp;&nbsp;</span>
 		</label>
 		<label for="review-radio-4">
-		<input type="radio" name="reviewSearch" id="review-radio-4" value="lowStar" <%if(reviewSearch.equals("lowStar")){%> checked="checked" <%}%>>
+		<input type="radio" name="reviewSearch" id="review-radio-4" value="lowStar" <%if(reviewSearch.equals("lowStar")){ %> checked="checked" <%}%>>
 			<span style= "font-size: 16px;">&nbsp;별점 낮은순&nbsp;&nbsp;</span>
 		</label>
 	</div>
@@ -274,54 +262,30 @@ if(loginHewon==null){
 
 <%-- 페이징 처리--%>
 <div class="review-paging-box">
-<%
-if(StartPage>blockSize) {
-%>
+<% if(StartPage>blockSize) { %>
 	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=review&pageNum=<%=StartPage-blockSize%>&reviewSearch=<%=reviewSearch%>&reviewKeyword=<%=reviewKeyword%>">[이전]</a>
-<%
-} else{
-%>
+<% } else{ %>
 	<span style="color: gray;">[이전]</span>
-<%
-}
-%>
+<%} %>
 
-<%
-for(int i=StartPage; i<=endPage; i++) {
-%>
-	<%
-	if(pageNum!=i){
-	%>
-	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=review&pageNum=<%=i%>&reviewSearch=<%=reviewSearch%>&reviewKeyword=<%=reviewKeyword%>">[<%=i%>]</a>
-	<%
-	} else {
-	%>
-		<span style="font-weight: 900">[<%=i%>]</span>
-	<%
-	}
-	%>
-<%
-}
-%>
+<%for(int i=StartPage; i<=endPage; i++) {%>
+	<% if(pageNum!=i){%>
+	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=review&pageNum=<%=i%>&reviewSearch=<%=reviewSearch%>&reviewKeyword=<%=reviewKeyword%>">[<%=i %>]</a>
+	<%} else {%>
+		<span style="font-weight: 900">[<%=i %>]</span>
+	<%} %>
+<%} %>
 
-<%
-if(endPage!=totalPage){
-%>
+<%if(endPage!=totalPage){ %>
 	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=review&pageNum=<%=StartPage+blockSize%>&reviewSearch=<%=reviewSearch%>&reviewKeyword=<%=reviewKeyword%>">[다음]</a>
-<%
-} else{
-%>
+<%} else{ %>
 	<span style="color: gray;">[다음]</span>
-<%
-}
-%>
+<%} %>
 </div>	
 
 
 <%-- 구매후기 list 반복문처리--%>
-<%
-for(ReviewDTO review:reviewList){
-%>
+<%for(ReviewDTO review:reviewList){ %>
 	<%--권한 : 일반글,비밀글 --%>
 	<%if(review.getrStatus()==1 || review.getrStatus()==2){ %>
 		<div class="review-box">

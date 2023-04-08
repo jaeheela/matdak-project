@@ -1,10 +1,10 @@
-<%@page import="com.matdak.dto.HewonDTO"%>
-<%@page import="com.matdak.dao.MoonDAO"%>
-<%@page import="com.matdak.dto.MoonDTO"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
+<%@page import="xyz.itwill.dao.MoonDAO"%>
+<%@page import="xyz.itwill.dto.MoonDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-if(request.getParameter("mCode")==null){
+	if(request.getParameter("mCode")==null){
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
 		out.println("</script>");
@@ -30,10 +30,10 @@ if(request.getParameter("mCode")==null){
 	
 	if(moon.getmStatus()==2){
 		if(loginHewon==null || !loginHewon.gethId().equals(moon.getmId()) && loginHewon.gethStatus()!=9){
-	out.println("<script type='text/javascript'>");
-	out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
-	out.println("</script>");
-	return;
+			out.println("<script type='text/javascript'>");
+			out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
+			out.println("</script>");
+			return;
 		}
 	}
 	

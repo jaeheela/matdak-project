@@ -2,9 +2,9 @@
 <%@page import="java.util.Date"%>
 <%@page import="org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation"%>
 <%@page import="java.text.ParseException"%>
-<%@page import="com.matdak.dao.AdminDAO"%>
-<%@page import="com.matdak.dao.NoticeDAO"%>
-<%@page import="com.matdak.dto.NoticeDTO"%>
+<%@page import="xyz.itwill.dao.AdminDAO"%>
+<%@page import="xyz.itwill.dao.NoticeDAO"%>
+<%@page import="xyz.itwill.dto.NoticeDTO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -18,17 +18,19 @@
 <%-- => 제품정보의 [제품명]을 클릭한 경우 제품정보 출력페이지(product_detail.jsp)로 이동 - 제품번호 전달 --%>
 <%@include file="/security/admin_check.jspf" %>
 <%
-//카테고리값이 변경될 경우
+	//카테고리값이 변경될 경우
 	String category=request.getParameter("category");
 	if(category==null) {
 		category="10";
 	}
 	//전달값을 반환받아 저장
 	int nStatus=Integer.parseInt(category);
+	
+
 %>
 
 <%
-//검색대상과 검색단어를 반환받아 저장
+	//검색대상과 검색단어를 반환받아 저장
 	String search = request.getParameter("search");
 	if(search==null){
 		search="";
@@ -155,18 +157,12 @@ td a, td a:hover {
 			<th>공지사항 작성일</th>
 		</tr>
 		
-		<%
-				if(noticeList.isEmpty()) {
-				%>
+		<% if(noticeList.isEmpty()) { %>
 		<tr>
 			<td colspan="4">검색된 공지사항이 없습니다.</td>
 		</tr>
-		<%
-		} else {
-		%>
-			<%
-			for(NoticeDTO notice:noticeList) {
-			%>
+		<% } else { %>
+			<% for(NoticeDTO notice:noticeList) { %>
 			<tr>
 				<td><%=notice.getnCode()%></td>
 				<td><%=notice.getnId()%></td>

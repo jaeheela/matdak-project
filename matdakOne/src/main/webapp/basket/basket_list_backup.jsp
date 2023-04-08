@@ -1,9 +1,9 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.matdak.dto.BasketDTO"%>
+<%@page import="xyz.itwill.dto.BasketDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.matdak.dao.CartDAO"%>
-<%@page import="com.matdak.dao.ProductDAO"%>
-<%@page import="com.matdak.dto.Product"%>
+<%@page import="xyz.itwill.dao.BasketDAO"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%--장바구니  목록 페이지 : 회원id와 상품pNo을 참조해 장바구니에 담은 상품 정보를 가져와 보여주는 JSP문서 --%>
@@ -16,18 +16,19 @@
 <%--로그인 사용자와 관리자만 사용 가능 --%>
 <%@include file="/security/login_url.jspf"%>
 <%
-//BASKET 테이블에 저장된 장바구니 목록을 검색하여 반환하는 DAO 클래스의 메소드 호출
-	List<BasketDTO> basketList =  CartDAO.getDAO().selectBasketList(loginHewon.gethId());
-	List<Product> productList = new ArrayList<Product>();
+	//BASKET 테이블에 저장된 장바구니 목록을 검색하여 반환하는 DAO 클래스의 메소드 호출
+	List<BasketDTO> basketList =  BasketDAO.getDAO().selectBasketList(loginHewon.gethId());
+	List<ProductDTO> productList = new ArrayList<ProductDTO>();
 	int totalSum = 0;
 	int totalList=0;
 	
 	for (BasketDTO basket : basketList) {
 	  int pNo = basket.getbPno();
-	  Product product = ProductDAO.getDAO().selectProduct(pNo);
+	  ProductDTO product = ProductDAO.getDAO().selectProduct(pNo);
 	  productList.add(product);
 	  totalSum = product.getpPrice() * basket.getbNum();
 	}
+	
 %>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <style type="text/css">
@@ -262,21 +263,13 @@ body {
 	</tr>
 
 <%--장바구니 상품 list --%>
-<%
-if(basketList.isEmpty()) {
-%>
+<% if(basketList.isEmpty()) { %>
 	<tr>		
 		<td colspan="3"><br>장바구니에 담긴 물건이 없습니다.</td>
 	</tr>	
-<%
-	} else {
-	%>
-		<%
-		for(BasketDTO basket: basketList) {
-		%>
-			<%
-			Product product=ProductDAO.getDAO().selectProduct(basket.getbPno());
-			%>
+<%} else { %>
+		<%for(BasketDTO basket: basketList) {%>
+			<% ProductDTO product=ProductDAO.getDAO().selectProduct(basket.getbPno()); %>
 			
 		<tr>		
 			<td class = "basketCheck">

@@ -1,10 +1,10 @@
-<%@page import="com.matdak.dao.AdminJDAO"%>
-<%@page import="com.matdak.dto.JumunDTO"%>
+<%@page import="xyz.itwill.dao.AdminJDAO"%>
+<%@page import="xyz.itwill.dto.JumunDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation"%>
 <%@page import="java.text.ParseException"%>
-<%@page import="com.matdak.dao.AdminDAO"%>
+<%@page import="xyz.itwill.dao.AdminDAO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,7 +20,7 @@
 
 
 <%
-//검색대상과 검색단어를 반환받아 저장
+	//검색대상과 검색단어를 반환받아 저장
 	String search = request.getParameter("search");
 	if(search==null){
 		search="";
@@ -82,6 +82,8 @@
 	if(endPage>totalPage){
 		endPage=totalPage;
 	}
+
+	
 %>
 
 
@@ -155,18 +157,12 @@ td a, td a:hover {
 			<th>주문 일자</th>
 		</tr>
 		
-		<%
-				if(jumunList.isEmpty()) {
-				%>
+		<% if(jumunList.isEmpty()) { %>
 		<tr>
 			<td colspan="4">검색된 주문이 없습니다.</td>
 		</tr>
-		<%
-		} else {
-		%>
-			<%
-			for(JumunDTO jumun:jumunList) {
-			%>
+		<% } else { %>
+			<% for(JumunDTO jumun:jumunList) { %>
 			<tr>
 				<td><%=jumun.getjNo()%></td>
 				<td><%=jumun.getjId()%></td>

@@ -1,8 +1,8 @@
-<%@page import="com.matdak.dto.ReviewDTO"%>
+<%@page import="xyz.itwill.dto.ReviewDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="com.matdak.dao.JumunDAO"%>
-<%@page import="com.matdak.dto.JumunDTO"%>
+<%@page import="xyz.itwill.dao.JumunDAO"%>
+<%@page import="xyz.itwill.dto.JumunDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 로그인회원 중 구매한 회원에게 리뷰 글을 입력받기 위한 JSP 문서 --%>    
@@ -75,9 +75,9 @@ input, textarea{
 }
 </style>
 <%
-//주문한 객체 생성
+	//주문한 객체 생성
 	List<JumunDTO> jumunList = new ArrayList<JumunDTO>();
-	jumunList = JumunDAO.getDAO().selectJumunList(loginHewon.gethId());
+	jumunList = JumunDAO.getDAO().selectJumunList(loginHewon.gethId());		
 %>
 
 <div class="content-box">
@@ -97,9 +97,7 @@ input, textarea{
 				<p class="review-cate-date">구매날짜</p>
 			</div>
 		</tr>
-	<%
-	for(JumunDTO jumun:jumunList){
-	%>
+	<%for(JumunDTO jumun:jumunList){ %>
 		<tr>
 			<label for="cate-<%=jumun.getjNo()%>" class="review-cate">
 				<input class="review-cate-radio" type="radio" id="cate-<%=jumun.getjNo()%>" name="rJno" value="<%=jumun.getjNo()%>">

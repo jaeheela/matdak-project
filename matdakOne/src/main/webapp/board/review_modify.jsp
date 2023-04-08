@@ -1,14 +1,14 @@
 <%@page import="oracle.net.aso.j"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.matdak.dao.JumunDAO"%>
-<%@page import="com.matdak.dto.JumunDTO"%>
+<%@page import="xyz.itwill.dao.JumunDAO"%>
+<%@page import="xyz.itwill.dto.JumunDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.matdak.dto.ReviewDTO"%>
-<%@page import="com.matdak.dao.ReviewDAO"%>
+<%@page import="xyz.itwill.dto.ReviewDTO"%>
+<%@page import="xyz.itwill.dao.ReviewDAO"%>
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
-<%@page import="com.matdak.util.Utility"%>
+<%@page import="xyz.itwill.util.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 리뷰글을 전달받아 REVIEW 테이블에 삽입하고 리뷰 출력페이지로
@@ -18,7 +18,8 @@
 <%@include file="/security/login_check.jspf" %>
 
 <%
-//비정상적인 요청에 대한 응답 처리 - 리뷰 번호 없는 경우
+
+	//비정상적인 요청에 대한 응답 처리 - 리뷰 번호 없는 경우
 	if(request.getParameter("rCode")==null){
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
@@ -118,9 +119,9 @@ input, textarea{
 	<input type="hidden" name="currentImage" value="<%=review.getrImage()%>">
 
 <%
-//주문한 객체 생성
+	//주문한 객체 생성
 	List<JumunDTO> jumunList = new ArrayList<JumunDTO>();
-	jumunList = JumunDAO.getDAO().selectJumunList(loginHewon.gethId());
+	jumunList = JumunDAO.getDAO().selectJumunList(loginHewon.gethId());		
 %>		
 <h3 style="margin:10px; font-size: 20px">구매 후기를 작성할 제품을 선택해주세요. <span style="color: red;">(중복 선택 불가능)</span></h3>
 
@@ -135,9 +136,7 @@ input, textarea{
 			<p class="review-cate-date">구매날짜</p>
 		</div>
 	</tr>
-<%
-for(JumunDTO jumun:jumunList){
-%>
+<%for(JumunDTO jumun:jumunList){ %>
 	<tr>
 		<label for="cate-<%=jumun.getjNo()%>" class="review-cate">
 			<input class="review-cate-radio" type="radio" id="cate-<%=jumun.getjNo()%>" name="rJno" value="<%=jumun.getjNo()%>"

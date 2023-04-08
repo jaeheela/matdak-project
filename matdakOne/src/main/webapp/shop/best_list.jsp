@@ -1,8 +1,8 @@
-<%@page import="com.matdak.dao.BestDAO"%>
-<%@page import="com.matdak.dto.BestDTO"%>
+<%@page import="xyz.itwill.dao.BestDAO"%>
+<%@page import="xyz.itwill.dto.BestDTO"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="com.matdak.dao.ProductDAO"%>
-<%@page import="com.matdak.dto.Product"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

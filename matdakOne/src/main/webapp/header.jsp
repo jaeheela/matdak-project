@@ -1,4 +1,4 @@
-<%@page import="com.matdak.entity.Hewon"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style type="text/css">
@@ -51,6 +51,29 @@
        color: orange;
 }
 
+
+/*
+.header-box .header-menu:before {
+    content: '';
+    display: block;
+    width: 90%;
+    height: 1px;
+    background: rgb(228, 225, 225);
+    position: absolute;
+    top: 15%; 
+}
+.header-box .header-menu:after {
+    content: '';
+    display: block;
+    width: 90%;
+    height: 1px;
+    background: rgb(228, 225, 225);
+    position: absolute;
+    top: 20%; 
+    margin-top: -7px;
+}
+*/
+
 .header-box .header-menu .header-menu-category .header-menu-category-list{
     margin-top:5px;
     text-align: center;  
@@ -75,24 +98,25 @@
     top:0px;
 }
 </style>
-<%
-	Hewon loginHewon=(Hewon)session.getAttribute("loginHewon");
-%>    	
+	<%
+	//세션에 저장된 권한 관련 정보를 반환받아 저장
+	HewonDTO loginHewon=(HewonDTO)session.getAttribute("loginHewon");
+%>    
 <div class="header-login-join">
 	
-<% if(loginHewon==null) {//비로그인 사용자인 경우 %>
-	<ul style="margin-left: 20px;">
-	<li><a href="index.jsp?workgroup=hewon&work=hewon_login&login=1"><span style="font-size: 13px;">로그인</span></a>&nbsp;&nbsp;</li>
-	<li><a href="index.jsp?workgroup=hewon&work=hewon_join"><span style="font-size: 13px;">회원가입</span></a>&nbsp;&nbsp;</li>
-	</ul>
-<% } else {//로그인 사용자인 경우  %>
-	<ul>
-	<li><a href="index.jsp?workgroup=hewon_action&work=hewon_logout_action"><span style="font-size: 13px;">로그아웃</span></a>&nbsp;&nbsp;</li>
-	<% if(loginHewon.gethStatus()==9) {//로그인 사용자가 관리자인 경우 %>
+		<% if(loginHewon==null) {//비로그인 사용자인 경우 %>
+		<ul style="margin-left: 20px;">
+		<li><a href="index.jsp?workgroup=hewon&work=hewon_login&login=1"><span style="font-size: 13px;">로그인</span></a>&nbsp;&nbsp;</li>
+		<li><a href="index.jsp?workgroup=hewon&work=hewon_join"><span style="font-size: 13px;">회원가입</span></a>&nbsp;&nbsp;</li>
+		</ul>
+	<% } else {//로그인 사용자인 경우  %>
+		<ul>
+		<li><a href="index.jsp?workgroup=hewon&work=hewon_logout_action"><span style="font-size: 13px;">로그아웃</span></a>&nbsp;&nbsp;</li>
+		<% if(loginHewon.gethStatus()==9) {//로그인 사용자가 관리자인 경우 %>
 		<li><a href="index.jsp?workgroup=admin&work=main_page"><span style="font-size: 13px;">관리자</span></a>&nbsp;&nbsp;</li>
-	</ul>
-	<% } %>
-<% } %>	
+		</ul>
+		<% } %>
+	<% } %>	
 </div>
 
 <%if(loginHewon!=null){ %>
@@ -103,7 +127,7 @@
 
 <div class="header-logo">
 	<a href="index.jsp?workgroup=main&work=main_page">
-		<img src="<%=request.getContextPath()%>/resources/theme/basic/img/head/logo_main5.png" alt="matdak_main_logo">
+		<img src="<%=request.getContextPath()%>/theme/basic/img/head/logo_main5.png" alt="matdak_main_logo">
 	</a>	
 </div>
 <div class="header-menubar" style="display: block; position: sticky; top:0px;">
@@ -142,17 +166,17 @@
 
 
 <script type="text/javascript">
-	//전체카테고리에 마우스 hover
-	$(".header-menu-category").hover(function () {
-	    $('.header-menu-category-list').show();
-	}, function () {
-	    $('.header-menu-category-list').hide();
-	});
-	
-	//커뮤니티에 마우스 hover
-	$(".header-menu-notice").hover(function () {
-	    $('.header-menu-notice-list').show();
-	}, function () {
-	    $('.header-menu-notice-list').hide();
-	});
+//전체카테고리에 마우스 hover
+$(".header-menu-category").hover(function () {
+    $('.header-menu-category-list').show();
+}, function () {
+    $('.header-menu-category-list').hide();
+});
+
+//커뮤니티에 마우스 hover
+$(".header-menu-notice").hover(function () {
+    $('.header-menu-notice-list').show();
+}, function () {
+    $('.header-menu-notice-list').hide();
+});
 </script>

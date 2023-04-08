@@ -1,9 +1,9 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.matdak.dao.AdminPDAO"%>
+<%@page import="xyz.itwill.dao.AdminPDAO"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="com.matdak.dao.ProductDAO"%>
-<%@page import="com.matdak.dto.Product"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,7 +15,7 @@
 <%-- => 제품정보의 [제품명]을 클릭한 경우 제품정보 출력페이지(product_detail.jsp)로 이동 - 제품번호 전달 --%>
 <%@include file="/security/admin_check.jspf" %>
 <%
-String pCate=request.getParameter("pCate");
+	String pCate=request.getParameter("pCate");
 	if(pCate==null) {
 		pCate="ALL";		
 	}
@@ -43,11 +43,12 @@ String pCate=request.getParameter("pCate");
 		endRow=totalProduct;
 	}
 	
-	List<Product> productList=ProductDAO.getDAO().selectProductListKeywordpCate(startRow, endRow, pCate);
+	List<ProductDTO> productList=ProductDAO.getDAO().selectProductListKeywordpCate(startRow, endRow, pCate);
 	
 	String currentDate=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	
 	int printNum=totalProduct-(pageNum-1)*pageSize;
+	
 %>
 
 <style type="text/css">
@@ -119,18 +120,12 @@ option {
 			<th style="width: 400px;">제품등록일자</th>
 		</tr>
 		
-		<%
-				if(productList.isEmpty()) {
-				%>
+		<% if(productList.isEmpty()) { %>
 		<tr>
 			<td colspan="6">검색된 제품이 하나도 없습니다.</td>
 		</tr>
-		<%
-		} else {
-		%>
-			<%
-			for(Product product:productList) {
-			%>
+		<% } else { %>
+			<% for(ProductDTO product:productList) { %>
 			<tr>
 				<td><%=product.getpNo()%></td>
 				

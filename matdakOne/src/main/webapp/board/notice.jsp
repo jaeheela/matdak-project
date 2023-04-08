@@ -1,11 +1,11 @@
-<%@page import="com.matdak.dao.HewonDAO"%>
+<%@page import="xyz.itwill.dao.HewonDAO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.matdak.dto.HewonDTO"%>
-<%@page import="com.matdak.dto.NoticeDTO"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
+<%@page import="xyz.itwill.dto.NoticeDTO"%>
 <%@page import="javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler"%>
 <%@page import="java.util.List"%>
-<%@page import="com.matdak.dao.NoticeDAO"%>
+<%@page import="xyz.itwill.dao.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- NOTICE 테이블에 저장된 게시글을 검색하여 게시글 목록을 클라이언트에게 전달하는 JSP 문서 --%>    
@@ -24,7 +24,7 @@
 <%-- => 글번호(nCode), 검색대상(search-컬럼명), 검색단어(keyword) 전달 --%>
 
 <%
-//검색대상과 검색단어를 반환받아 저장
+	//검색대상과 검색단어를 반환받아 저장
 	String search = request.getParameter("search");
 	if(search==null){
 		search="";
@@ -124,7 +124,9 @@
  	//for(int i = 0; i < session.getValueNames().length; i++){
  	//	System.out.println("중복방지 444 = " + session.getValueNames()[i].toString() );
  	//}
-	*/
+	*/	
+	
+	
 %>
 
 <style type="text/css">
@@ -191,9 +193,9 @@
 	<div class="notice-searching-box">
 	<form action="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=notice" method="post" style="display: inline;">
 		<select name="search">
-			<option style="font-size:13px;" value="n_title" <%if(search.equals("n_title")){%>selected="selected"<%}%>selected>&nbsp;제목&nbsp;</option>
-			<option style="font-size:13px;" value="h_name" <%if(search.equals("h_name")){%>selected="selected"<%}%> >&nbsp;작성자&nbsp;</option>
-			<option style="font-size:13px;" value="n_content" <%if(search.equals("n_content")){%>selected="selected"<%}%>>&nbsp;내용&nbsp;</option>
+			<option style="font-size:13px;" value="n_title" <%if(search.equals("n_title")){ %>selected="selected"<%} %>selected>&nbsp;제목&nbsp;</option>
+			<option style="font-size:13px;" value="h_name" <%if(search.equals("h_name")){ %>selected="selected"<%} %> >&nbsp;작성자&nbsp;</option>
+			<option style="font-size:13px;" value="n_content" <%if(search.equals("n_content")){ %>selected="selected"<%} %>>&nbsp;내용&nbsp;</option>
 		</select>
 		<input type="text" name="keyword" value="<%=keyword%>" placeholder="공지사항을 검색하세요."> 
 		<button type="submit" style="font-size:15px;">검색</button>		
@@ -201,80 +203,44 @@
 
 	</div>
 	<%-- [글쓰기]버튼 : 관리자에게만 [글쓰기] 권한 부여  --%>
-	<%
-	if (loginHewon!=null && loginHewon.gethStatus()==9) {
-	%>	
+	<% if (loginHewon!=null && loginHewon.gethStatus()==9) { %>	
 		<span style="position: relative; margin-top:5px;"><button type="button" style="font-size:15px;" onclick="location.href='<%=request.getContextPath()%>/index.jsp?workgroup=board&work=notice_write';">글쓰기</button></span>
-	<%
-	}
-	%>
+	<% } %>
 
 	<%-- 공지사항 list --%>
-	<%
-	if(totalNotice==0){
-	%>
+	<%if(totalNotice==0){ %>
 		<div style="text-align: center; font-size: 20px;">검색된 공지사항 글이 없습니다.</div>
-	<%
-	} else{
-	%>
+	<%} else{%>
 	
-		<%
-			if(!noticeList.isEmpty()){
-			%>
-		<div style="text-align: center; font-size: 20px; margin-bottom: 5px;">총 <%=totalNotice%>개의 공지사항 글이 있습니다.</div>
-		<%
-		}
-		%>
+		<%if(!noticeList.isEmpty()){ %>
+		<div style="text-align: center; font-size: 20px; margin-bottom: 5px;">총 <%=totalNotice %>개의 공지사항 글이 있습니다.</div>
+		<%} %>
 		
 		<%-- 페이징 처리--%>
 		<div class="notice-paging-box">
-		<%
-		if(StartPage>blockSize) {
-		%>
+		<% if(StartPage>blockSize) { %>
 			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=notice&pageNum=<%=StartPage-blockSize%>&search=<%=search%>&keyword=<%=keyword%>">[이전]</a>
-		<%
-		} else{
-		%>
+		<% } else{ %>
 			<span style="color: gray;">[이전]</span>
-		<%
-		}
-		%>
+		<%} %>
 		
-		<%
-				for(int i=StartPage; i<=endPage; i++) {
-				%>
-			<%
-			if(pageNum!=i){
-			%>
-			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=notice&pageNum=<%=i%>&search=<%=search%>&keyword=<%=keyword%>">[<%=i%>]</a>
-			<%
-			} else {
-			%>
-				<span style="font-weight: 900">[<%=i%>]</span>
-			<%
-			}
-			%>
-		<%
-		}
-		%>
+		<%for(int i=StartPage; i<=endPage; i++) {%>
+			<% if(pageNum!=i){%>
+			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=notice&pageNum=<%=i%>&search=<%=search%>&keyword=<%=keyword%>">[<%=i %>]</a>
+			<%} else {%>
+				<span style="font-weight: 900">[<%=i %>]</span>
+			<%} %>
+		<%} %>
 		
-		<%
-				if(endPage!=totalPage){
-				%>
+		<%if(endPage!=totalPage){ %>
 			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=notice&pageNum=<%=StartPage+blockSize%>&search=<%=search%>&keyword=<%=keyword%>">[다음]</a>
-		<%
-		} else{
-		%>
+		<%} else{ %>
 			<span style="color: gray;">[다음]</span>
-		<%
-		}
-		%>
+		<%} %>
 		</div>		
 		<%-- 공지사항출력 --%>
 		<div class="notice-list-area">
-		<%
-		for(NoticeDTO notice:noticeList){
-		%>
+		<%for(NoticeDTO notice:noticeList){ %>
 			<% if(notice.getnStatus()==1){ %>
 			<div class="notice-list-box">
 		 	<a href="<%=request.getContextPath()%>/index.jsp?workgroup=board&work=notice_detail&nCode=<%=notice.getnCode()%>&pageNum=<%=pageNum%>&search=<%=search%>&keyword=<%=keyword%>">		

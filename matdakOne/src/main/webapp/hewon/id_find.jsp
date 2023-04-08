@@ -56,41 +56,44 @@ input {
 </style>
 </head>
 <body>
+
 <p style="text-align: center; font-weight: bold;">아이디 찾기</p>
 <div id="message">
-	가입 시 기재한 이름과 이메일 주소를 입력해주세요.
-</div>
-<div id="form">
-	<form id="find" action="<%=request.getContextPath()%>/hewon_action/id_find_action.jsp"  method="get">
-		<input type="text" name="hName" id="name" placeholder="이름" >
-		<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
-		<br>
-		<input type="text" name="hEmail" id="email" placeholder="이메일" > 
-		<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
-		<button type="submit">확인</button>
-	</form>
-</div>
+			가입 시 기재한 이름과 이메일 주소를 입력해주세요.
+		</div>
+		<div id="form">
+			<form id="find" action="<%=request.getContextPath()%>/hewon/id_find_action.jsp"  method="get">
+	
+				<input type="text" name="name" id="name" placeholder="이름" >
+				<div id="nameMsg" class="error">이름을 입력해 주세요.</div><br>
+		
+				 <input type="text" name="email" id="email" placeholder="이메일" > 
+				<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
+	
+			<button type="submit">확인</button>
+			</form>
+	</div>
 </body>
-<script type="text/javascript">
+	<script type="text/javascript">
 
-$("#find").submit(function() {
-	var submitResult=true;
-	
-	$(".error").css("display","none");
-	var idReg=/^[a-zA-Z]\w{5,19}$/g;
-
-	if($("#name").val()=="") {
-		$("#nameMsg").css("display","block");
-		submitResult=false;
-	}
-	
-	var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
-	if($("#email").val()=="") {
-		$("#emailMsg").css("display","block");
-		submitResult=false;
-	} 
-	
-	return submitResult;
-});
-</script>
+		$("#find").submit(function() {
+			var submitResult=true;
+			
+			$(".error").css("display","none");
+			var idReg=/^[a-zA-Z]\w{5,19}$/g;
+		
+			if($("#name").val()=="") {
+				$("#nameMsg").css("display","block");
+				submitResult=false;
+			}
+			
+			var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
+			if($("#email").val()=="") {
+				$("#emailMsg").css("display","block");
+				submitResult=false;
+			} 
+			
+			return submitResult;
+		});
+		</script>
 </html>

@@ -1,8 +1,8 @@
-<%@page import="com.matdak.dao.BestDAO"%>
-<%@page import="com.matdak.dto.BestDTO"%>
+<%@page import="xyz.itwill.dao.BestDAO"%>
+<%@page import="xyz.itwill.dto.BestDTO"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="com.matdak.dao.ProductDAO"%>
-<%@page import="com.matdak.dto.Product"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 상품코드를 전달받아 BEST 테이블에 저장된 모든 제품정보를 검색하여 클라이언트에게 전달하는 JSP 문서 --%>

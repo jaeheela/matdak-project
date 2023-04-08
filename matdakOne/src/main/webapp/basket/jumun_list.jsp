@@ -1,8 +1,8 @@
-<%@page import="com.matdak.dao.ProductDAO"%>
+<%@page import="xyz.itwill.dao.ProductDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.matdak.dto.Product"%>
-<%@page import="com.matdak.dao.CartDAO"%>
-<%@page import="com.matdak.dto.BasketDTO"%>
+<%@page import="xyz.itwill.dto.ProductDTO"%>
+<%@page import="xyz.itwill.dao.BasketDAO"%>
+<%@page import="xyz.itwill.dto.BasketDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -156,15 +156,15 @@ td{
 <%@include file="/security/login_check.jspf"%>
 
 <%
-//주문 목록 불러오기 
-    List<BasketDTO> basketList = CartDAO.getDAO().selectBasketList(loginHewon.gethId());
-    List<Product> productList = new ArrayList<Product>();
+  //주문 목록 불러오기 
+    List<BasketDTO> basketList = BasketDAO.getDAO().selectBasketList(loginHewon.gethId());
+    List<ProductDTO> productList = new ArrayList<ProductDTO>();
     List<Integer>qtyList = new ArrayList<Integer>();
     int totalList = 0;
   
     for (BasketDTO basket : basketList) {
       int pNo = basket.getbPno();
-      Product product = ProductDAO.getDAO().selectProduct(pNo);
+      ProductDTO product = ProductDAO.getDAO().selectProduct(pNo);
       productList.add(product);
       qtyList.add(basket.getbNum());
       totalList += product.getpPrice() * basket.getbNum();

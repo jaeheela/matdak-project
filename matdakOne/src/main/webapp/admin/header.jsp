@@ -1,4 +1,4 @@
-<%@page import="com.matdak.dto.HewonDTO"%>
+<%@page import="xyz.itwill.dto.HewonDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style type="text/css">
@@ -77,7 +77,7 @@
 
 </style>
 <%
-//세션에 저장된 권한 관련 정보를 반환받아 저장
+	//세션에 저장된 권한 관련 정보를 반환받아 저장
 	HewonDTO loginHewon=(HewonDTO)session.getAttribute("loginHewon");
 %>
 

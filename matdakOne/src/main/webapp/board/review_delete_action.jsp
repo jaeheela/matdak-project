@@ -1,7 +1,7 @@
-<%@page import="com.matdak.dao.ReviewDAO"%>
-<%@page import="com.matdak.dto.ReviewDTO"%>
-<%@page import="com.matdak.dao.NoticeDAO"%>
-<%@page import="com.matdak.dto.NoticeDTO"%>
+<%@page import="xyz.itwill.dao.ReviewDAO"%>
+<%@page import="xyz.itwill.dto.ReviewDTO"%>
+<%@page import="xyz.itwill.dao.NoticeDAO"%>
+<%@page import="xyz.itwill.dto.NoticeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 글번호를 전달받아 REVIEW 테이블의 게시글에서 해당 글번호의 게시글에 대한 STATUS 
@@ -12,7 +12,7 @@ URL 주소를 클라이언트에게 전달하는 JSP 문서 - 값 전달 없음 
 <%@include file="/security/login_check.jspf" %>
 
 <%
-if(request.getParameter("rCode")==null) {
+	if(request.getParameter("rCode")==null) {
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
 		out.println("</script>");
@@ -54,4 +54,5 @@ if(request.getParameter("rCode")==null) {
 	out.println("<script type='text/javascript'>");
 	out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=board&work=review';");
 	out.println("</script>");
+	
 %>	

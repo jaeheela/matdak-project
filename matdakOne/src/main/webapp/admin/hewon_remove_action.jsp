@@ -1,4 +1,4 @@
-<%@page import="com.matdak.dao.HewonDAO"%>
+<%@page import="xyz.itwill.dao.HewonDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 아이디 목록을 전달받아 MEMBER 테이블에 저장된 해당 아이디의 회원정보를 삭제하고 회원정보

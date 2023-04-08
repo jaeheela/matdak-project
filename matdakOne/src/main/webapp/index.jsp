@@ -5,13 +5,18 @@
 request.setCharacterEncoding("utf-8");
 
 String workgroup = request.getParameter("workgroup");
-if (workgroup == null) workgroup = "main";
+if (workgroup == null)
+	workgroup = "main";
 
 String work = request.getParameter("work");
-if (work == null) work = "main_page";
+if (work == null)
+	work = "main_page";
 
 String headerPath = "header.jsp";
-if (workgroup.equals("admin")) headerPath = "admin/header.jsp";
+
+if (workgroup.equals("admin")) {//관리자 관련 페이지를 요청한 경우
+	headerPath = "admin/header.jsp";
+}
 
 String contentPath = workgroup + "/" + work + ".jsp";
 %>
@@ -23,11 +28,11 @@ String contentPath = workgroup + "/" + work + ".jsp";
 <title>MATDAK</title>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.menu.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.menu.js"></script>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/csshome/reset.css" type="text/css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/csshome/common.css" type="text/css">
+<link rel="stylesheet" href="csshome/reset.css" type="text/css">
+<link rel="stylesheet" href="csshome/common.css" type="text/css">
 </head>
 <body>
 	<div class="header-box">

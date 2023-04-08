@@ -1,11 +1,12 @@
-<%@page import="com.matdak.dao.MoonDAO"%>
-<%@page import="com.matdak.dto.MoonDTO"%>
-<%@page import="com.matdak.util.Utility"%>
+<%@page import="xyz.itwill.dao.MoonDAO"%>
+<%@page import="xyz.itwill.dto.MoonDTO"%>
+<%@page import="xyz.itwill.util.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/security/login_check.jspf"%>
 <%
-if(request.getMethod().equals("GET")) {
+
+	if(request.getMethod().equals("GET")) {
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
 		out.println("</script>");

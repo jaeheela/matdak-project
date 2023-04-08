@@ -1,4 +1,4 @@
-<%@page import="com.matdak.dao.HewonDAO"%>
+<%@page import="xyz.itwill.dao.HewonDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 아이디와 회원상태를 전달받아 MEMBER 테이블에 저장된 해당 아이디의 회원상태를 변경하고 회원정보
