@@ -1,30 +1,20 @@
-<%@page import="xyz.itwill.dao.AdminPDAO"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="xyz.itwill.dao.ProductDAO"%>
 <%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 제품번호를 전달받아 PRODUCT 테이블에 저장된 해당 제품번호의 제품정보를 검색하여 
-입력태그의 초기값으로 설정하고 사용자로부터 변경값을 입력받기 위한 JSP 문서 --%>   
-<%-- => 관리자만 요청 가능한 JSP 문서 --%>
-<%-- => [제품변경]을 클릭한 경우 제품정보 변경페이지(product_modify_action.jsp)로 이동 - 입력값 전달 --%>
-<%@include file="/security/admin_check.jspf" %>
+<%-- <%@include file="/security/admin_check.jspf" %> --%>
 <%
-	//비정상적인 요청에 대한 응답 처리
 	if(request.getParameter("pNo")==null) {
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
 		out.println("</script>");
 		return;			
 	}
-	//전달값을 반환받아 저장
+
 	int pNo=Integer.parseInt(request.getParameter("pNo"));
-	
-	//제품번호를 전달받아 PRODUCT 테이블에 저장된 해당 제품번호의 제품정보를 검색하여 
-	//반환하는 DAO 클래스의 메소드 호출
 	ProductDTO product=ProductDAO.getDAO().selectProduct(pNo);
 	
-	//검색된 제품정보가 없는 경우 에러페이지로 이동하여 응답 처리 - 비정상적인 요청
 	if(product==null) {
 		out.println("<script type='text/javascript'>");
 		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
@@ -49,14 +39,8 @@ td {
 <div id="product">
 	<h2>상품변경</h2>
 	
-	<%-- 사용자로부터 파일을 입력받아 요청 페이지로 전달하기 위해서는 반드시 form 태그의
-	enctype 속성값을 [multipart/form-data]으로 설정 --%>
-	<form action="<%=request.getContextPath() %>/index.jsp?workgroup=admin&work=product_modify_action" 
-		method="post" enctype="multipart/form-data" id="productForm">
-		<%-- 변경할 제품정보를 구분하기 위한 식별자로 제품번호 전달 --%>
+	<form action="<%=request.getContextPath() %>/index.jsp?workgroup=admin&work=product_modify_action" method="post" enctype="multipart/form-data" id="productForm">
 		<input type="hidden" name="pNo" value="<%=product.getpNo()%>">
-		<%-- 제품 관련 이미지를 변경하지 않을 경우 기존 제품 관련 이미지를 사용하기 위해 전달하거나
-		제품 관련 이미지를 변경할 경우 기존 제품 관련 이미지를 서버 디렉토리에서 삭제하기 위해 전달 --%>
 		<input type="hidden" name="currentpImg" value="<%=product.getpImg()%>">
 		<input type="hidden" name="currentpInfo" value="<%=product.getpInfo()%>">
 		<table>

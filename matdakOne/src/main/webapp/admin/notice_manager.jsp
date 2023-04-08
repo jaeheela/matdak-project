@@ -10,27 +10,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%-- 카테고리를 전달받아 PRODUCT 테이블에 저장된 해당 카테고리의 모든 제품정보를 검색하여
-클라이언트에게 전달하는 JSP 문서 --%>
-<%-- => 관리자만 요청 가능한 JSP 문서 --%>    
-<%-- => [제품등록]을 클릭한 경우 제품정보 입력페이지(product_add.jsp)로 이동 --%>
-<%-- => [카테고리]가 변경된 경우 제품목록 출력페이지(product_manager.jsp)로 이동 - 입력값 전달 --%>
-<%-- => 제품정보의 [제품명]을 클릭한 경우 제품정보 출력페이지(product_detail.jsp)로 이동 - 제품번호 전달 --%>
-<%@include file="/security/admin_check.jspf" %>
+<%-- <%@include file="/security/admin_check.jspf" %> --%>
 <%
-	//카테고리값이 변경될 경우
 	String category=request.getParameter("category");
 	if(category==null) {
 		category="10";
 	}
-	//전달값을 반환받아 저장
 	int nStatus=Integer.parseInt(category);
-	
 
-%>
-
-<%
-	//검색대상과 검색단어를 반환받아 저장
 	String search = request.getParameter("search");
 	if(search==null){
 		search="";
@@ -40,55 +27,31 @@
 		keyword="";
 	}
 	
-	//페이징처리 관련 요청페이지번호를 반환받아 저장
 	int pageNum = 1;
 	if(request.getParameter("pageNum")!=null){
 		pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	}
-	
-	//하나의 페이지에 출력될 이미지의 갯수 설정
 	int pageSize = 6;
-	
-	//검색 관련 정보를 전달받아 NOTICE 테이블에 저장된 특정 공지사항의 갯수를 검색하여 반환하는
-	//DAO 클래스의 메소드 호출
-	int totalNotice = AdminDAO.getDAO().selectNoticeCount(search, keyword,nStatus);
-	//System.out.println(totalNotice);
-	//전체 페이지의 갯수를 계산하여 저장
+	int totalNotice = NoticeDAO.getDAO().selectNoticeCount(search, keyword,nStatus);
 	int totalPage = (int)Math.ceil((double)totalNotice/pageSize);
-	
-	//요청페이지번호 검증 - 비정상적인 요청
 	if(pageNum<=0 || pageNum>totalPage){ 
 		pageNum=1;
 	}
 	
-	//시작행과 종료행을 계산하여 저장
 	int startRow = (pageNum-1)*pageSize+1;
 	int endRow = pageNum*pageSize;
 	if(endRow>totalNotice){
 		endRow=totalNotice;
 	}
 	
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료게시글의 행번호를 전달받아
-	//NOTICE 테이블에 저장된 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 DAO클래스의 메소드 호출
-	List<NoticeDTO> noticeList = AdminDAO.getDAO().selectNoticeList(startRow, endRow, search, keyword,nStatus);
+	List<NoticeDTO> noticeList = NoticeDAO.getDAO().selectNoticeList(startRow, endRow, search, keyword,nStatus);
 	
 	
-	//서버 시스템의 현재 날짜를 반환받아 저장
 	String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-	
-	//요청페이지에 검색되어 출력될 시작 게시글의 일련번호에 대한 시작값을 계산하여 저장
 	int printNum = totalNotice-(pageNum-1)*pageSize;
-	
-	//페이징 처리
-	//하나의 페이지 블럭에 출력될 페이지 번호의 갯수 설정
 	int blockSize = 5;
-
-	//페이지 블럭에 출력될 시작 페이지 번호를 계산하여 저장
 	int StartPage=(pageNum-1)/blockSize*blockSize+1;
-	
-	//페이지블럭에 출력될 종료 페이지 번호를 계산하여 저장
 	int endPage=StartPage+blockSize-1;
-	//마지막페이지 블럭의 종료 페이지 번호 변경
 	if(endPage>totalPage){
 		endPage=totalPage;
 	}

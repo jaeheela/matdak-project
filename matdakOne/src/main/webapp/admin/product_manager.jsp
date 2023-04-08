@@ -7,46 +7,30 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 카테고리를 전달받아 PRODUCT 테이블에 저장된 해당 카테고리의 모든 제품정보를 검색하여
-클라이언트에게 전달하는 JSP 문서 --%>
-<%-- => 관리자만 요청 가능한 JSP 문서 --%>    
-<%-- => [제품등록]을 클릭한 경우 제품정보 입력페이지(product_add.jsp)로 이동 --%>
-<%-- => [카테고리]가 변경된 경우 제품목록 출력페이지(product_manager.jsp)로 이동 - 입력값 전달 --%>
-<%-- => 제품정보의 [제품명]을 클릭한 경우 제품정보 출력페이지(product_detail.jsp)로 이동 - 제품번호 전달 --%>
-<%@include file="/security/admin_check.jspf" %>
+<%--  <%@include file="/security/admin_check.jspf" %> --%>
 <%
 	String pCate=request.getParameter("pCate");
 	if(pCate==null) {
 		pCate="ALL";		
 	}
-	
 	int pageNum = 1;
 	if(request.getParameter("pageNum")!=null){
 		pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	}
-	
 	int pageSize = 10;
-	
 	int totalProduct=ProductDAO.getDAO().selectProductCountpCate(pCate);
-	
 	int totalPage = (int)Math.ceil((double)totalProduct/pageSize);
-	
 	if(pageNum<=0 || pageNum>totalPage){ 
 		pageNum=1;
 	}
-	
 	int startRow = (pageNum-1)*pageSize+1;
-	
 	int endRow = pageNum*pageSize;
-	
 	if(endRow>totalProduct){
 		endRow=totalProduct;
 	}
 	
 	List<ProductDTO> productList=ProductDAO.getDAO().selectProductListKeywordpCate(startRow, endRow, pCate);
-	
 	String currentDate=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-	
 	int printNum=totalProduct-(pageNum-1)*pageSize;
 	
 %>

@@ -1,72 +1,41 @@
+<%@page import="xyz.itwill.dto.HewonDTO"%>
 <%@page import="xyz.itwill.dao.AdminDAO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="xyz.itwill.dao.HewonDAO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%-- Hewon 테이블에 저장된 모든 회원정보를 검색하여 클라이언트에게 전달하는 JSP 문서 --%>
-<%-- => 관리자만 요청 가능한 JSP 문서 --%>
-<%-- => [선택회원삭제]를 클릭한 경우 회원정보 삭제페이지(Hewon_remove_action.jsp)로 이동 - 체크박스로 선택된 모든 회원의 아이디 전달  --%>
-<%-- => 회원정보에서 [상태]를 변경한 경우 회원상태 변경페이지(Hewon_status_action.jsp)로 이동 - 아이디와 회원상태 전달 --%>    
-<%@include file="/security/admin_check.jspf" %>   
-
+    pageEncoding="UTF-8"%>   
+<%-- <%@include file="/security/admin_check.jspf" %>   --%>
 <%
-
-
 	String keyword = request.getParameter("keyword");
 	if(keyword==null){
 		keyword="";
 	}
-	
-	//페이징처리 관련 요청페이지번호를 반환받아 저장
 	int pageNum = 1;
 	if(request.getParameter("pageNum")!=null){
 		pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	}
-	
-	//하나의 페이지에 출력될 이미지의 갯수 설정
 	int pageSize = 6;
 	
-	//검색 관련 정보를 전달받아 review 테이블에 저장된 특정 공지사항의 갯수를 검색하여 반환하는
-	//DAO 클래스의 메소드 호출
-	int totalreview = AdminDAO.getDAO().selectHewonCount(keyword);
+	int totalHewon = HewonDAO.getDAO().selectHewonCount(keyword);
 	
-	//전체 페이지의 갯수를 계산하여 저장
-	int totalPage = (int)Math.ceil((double)totalreview/pageSize);
-	
-	//요청페이지번호 검증 - 비정상적인 요청
+	int totalPage = (int)Math.ceil((double)totalHewon/pageSize);
 	if(pageNum<=0 || pageNum>totalPage){ 
 		pageNum=1;
 	}
-	
-	//시작행과 종료행을 계산하여 저장
 	int startRow = (pageNum-1)*pageSize+1;
 	int endRow = pageNum*pageSize;
-	if(endRow>totalreview){
-		endRow=totalreview;
+	if(endRow>totalHewon){
+		endRow=totalHewon;
 	}
+	List<HewonDTO> HewonList = HewonDAO.getDAO().selectHewonList(startRow, endRow, keyword);
 	
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료게시글의 행번호를 전달받아
-	//review 테이블에 저장된 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 DAO클래스의 메소드 호출
-	List<HewonDTO> HewonList = AdminDAO.getDAO().selectHewonList(startRow, endRow, keyword);
-	
-	//서버 시스템의 현재 날짜를 반환받아 저장
 	String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-	
-	//요청페이지에 검색되어 출력될 시작 게시글의 일련번호에 대한 시작값을 계산하여 저장
-	int printNum = totalreview-(pageNum-1)*pageSize;
-	
-	//페이징 처리
-	//하나의 페이지 블럭에 출력될 페이지 번호의 갯수 설정
+	int printNum = totalHewon-(pageNum-1)*pageSize;
 	int blockSize = 5;
-
-	//페이지 블럭에 출력될 시작 페이지 번호를 계산하여 저장
 	int StartPage=(pageNum-1)/blockSize*blockSize+1;
-	
-	//페이지블럭에 출력될 종료 페이지 번호를 계산하여 저장
 	int endPage=StartPage+blockSize-1;
-	//마지막페이지 블럭의 종료 페이지 번호 변경
 	if(endPage>totalPage){
 		endPage=totalPage;
 	}
@@ -130,7 +99,6 @@ th {
 			<th>전화번호</th>
 			<th>주소</th>
 			<th>상태</th>
-
 		</tr>
 		
 		<% for(HewonDTO Hewon:HewonList) { %>
@@ -165,38 +133,36 @@ th {
 </form>
 
 <div class="hewon-paging-box">
-
-		<% if(StartPage>blockSize) { %>
-			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=hewon_manager&pageNum=<%=StartPage-blockSize%>&keyword=<%=keyword%>">[이전]</a>
-		<% } else{ %>
-			<span style="color: gray;">[이전]</span>
+	<% if(StartPage>blockSize) { %>
+		<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=hewon_manager&pageNum=<%=StartPage-blockSize%>&keyword=<%=keyword%>">[이전]</a>
+	<% } else{ %>
+		<span style="color: gray;">[이전]</span>
+	<%} %>
+	
+	<%for(int i=StartPage; i<=endPage; i++) {%>
+		<% if(pageNum!=i){%>
+		<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=hewon_manager&pageNum=<%=i%>&keyword=<%=keyword%>">[<%=i %>]</a>
+		<%} else {%>
+			<span style="font-weight: 900">[<%=i %>]</span>
 		<%} %>
-		
-		<%for(int i=StartPage; i<=endPage; i++) {%>
-			<% if(pageNum!=i){%>
-			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=hewon_manager&pageNum=<%=i%>&keyword=<%=keyword%>">[<%=i %>]</a>
-			<%} else {%>
-				<span style="font-weight: 900">[<%=i %>]</span>
-			<%} %>
-		<%} %>
-		
-		<%if(endPage!=totalPage){ %>
-			<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=review_manager&pageNum=<%=StartPage+blockSize%>&keyword=<%=keyword%>">[다음]</a>
-		<%} else{ %>
-			<span style="color: gray;">[다음]</span>
-		<%} %>
-		
+	<%} %>
+	
+	<%if(endPage!=totalPage){ %>
+		<a href="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=review_manager&pageNum=<%=StartPage+blockSize%>&keyword=<%=keyword%>">[다음]</a>
+	<%} else{ %>
+		<span style="color: gray;">[다음]</span>
+	<%} %>
 </div>
 
 
 <%-- 서칭 처리--%>
-	<div class="hewon-searching-box">
-	<form action="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=hewon_manager" method="post" style="display: inline;">
-		ID : 
-		<input type="text" name="keyword" value="<%=keyword%>" placeholder="아이디를 검색하세요."> 
-		<button type="submit" style="font-size:15px;">검색</button>		
-	</form>
-	</div>
+<div class="hewon-searching-box">
+<form action="<%=request.getContextPath()%>/index.jsp?workgroup=admin&work=hewon_manager" method="post" style="display: inline;">
+	ID : 
+	<input type="text" name="keyword" value="<%=keyword%>" placeholder="아이디를 검색하세요."> 
+	<button type="submit" style="font-size:15px;">검색</button>		
+</form>
+</div>
 
 
 
@@ -222,6 +188,7 @@ $("#removeBtn").click(function() {
 	
 	$("#HewonForm").submit();
 });
+
 $(".status").change(function() {
 	//이벤트가 발생된 입력태그의 태그 속성값을 반환받아 저장
 	// => 회원상태를 변경하고자 하는 회원의 아이디를 제공받아 저장 - 식별자

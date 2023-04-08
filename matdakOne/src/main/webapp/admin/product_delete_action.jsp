@@ -2,7 +2,7 @@
 <%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/security/admin_check.jspf" %>
+<%--<%@include file="/security/admin_check.jspf" --%>
 
 <%
 	if(request.getParameter("pNo")==null) {
@@ -23,12 +23,6 @@
 		return;
 	}
 
-	if(loginHewon.gethStatus()!=9) {
-		out.println("<script type='text/javascript'>");
-		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
-		out.println("</script>");
-		return;
-	}
 	
 	ProductDAO.getDAO().updatepStatus(pNo, 0);
 	

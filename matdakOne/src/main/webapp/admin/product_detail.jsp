@@ -5,11 +5,7 @@
 <%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 제품번호를 전달받아 PRODUCT 테이블에 저장된 해당 제품번호의 제품정보를 검색하여 
-클라이언트에게 전달하는 JSP 문서 --%>  
-<%-- => 관리자만 요청 가능한 JSP 문서 --%>
-<%-- => [제품정보변경]을 클릭한 경우 제품정보 입력페이지(product_modify.jsp)로 이동 - 제품번호 전달 --%>    
-<%@include file="/security/admin_check.jspf" %>
+<%-- <%@include file="/security/admin_check.jspf" %> --%>
 <%
 	if(request.getParameter("pNo")==null) {
 		out.println("<script type='text/javascript'>");

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 사용자로부터 제품정보를 입력받기 위한 JSP 문서 --%>
-<%-- => 관리자만 요청 가능한 JSP 문서 --%>
-<%-- => [제품등록]을 클릭한 경우 제품정보 삽입페이지(product_add_action.jsp)로 이동 - 입력값 전달 --%>    
-<%@include file="/security/admin_check.jspf" %>
+<%-- <%@include file="/security/admin_check.jspf" %> --%>
 <style type="text/css">
 #product {
 	width: 800px;
