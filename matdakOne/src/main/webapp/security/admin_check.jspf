@@ -1,0 +1,12 @@
+<%@page import="com.matdak.entity.Hewon"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	Hewon loginHewon=(Hewon)session.getAttribute("loginHewon");
+	if(loginHewon==null || loginHewon.gethStatus()!=9) {
+		out.println("<script type='text/javascript'>");
+		out.println("location.href='"+request.getContextPath()+"/index.jsp?workgroup=error&work=error_400';");
+		out.println("</script>");
+		return;		
+	}
+%>    

@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+#mypage_wrap {
+	border-bottom: 1px solid #e6e6e6;
+	height: 115px;
+}
+
+.mypage_title {
+	color: #333;
+    font-size: 32px;
+    font-weight: 500;
+    padding: 0 0 20px;
+}
+
+.mypage_head {
+	overflow: hidden;
+	height: 40px;
+}
+
+.mypage_head .mypage_head_id {
+	float: left;
+	margin: 10px 0;
+	padding-left: 10px;
+	font-size: 15px;
+	width: 250px;
+}
+
+.mypage_head_list {
+	border-bottom: 1px solid red;
+}
+
+.head_list_chk {
+	width: 1000px;
+	padding: 20px 0 0;
+}
+
+a:link, a:visited {
+	text-decoration: none;
+}
+
+.mypage_head_list ul li a img {
+	display: inline;
+}

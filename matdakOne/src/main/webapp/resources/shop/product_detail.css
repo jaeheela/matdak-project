@@ -1,0 +1,219 @@
+@charset "UTF-8";
+
+#item_wrap {
+    width: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#item_wrap .item_content_box {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#item_wrap .item_content_box > div {
+    padding: 75px 0 150px;
+    position: relative;
+}
+
+table {
+    background-color: transparent;
+}
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.itemImg_area {
+    padding-right: 50px;
+    vertical-align: top;
+}
+
+td, th {
+    padding: 0;
+}
+
+.itemImg_area > div > img {
+    width: 480px;
+    height: 480px;
+    border-radius: 5px;
+}
+img {
+    vertical-align: middle;
+}
+img {
+    border: 0;
+}
+
+.itemInfo_td {
+    width: 470px;
+    vertical-align: top;
+    position: relative;
+}
+
+.itemInfo_td .itemInfo_td_div_area .orderItem_title {
+    color: #333;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 40px;
+    padding-bottom: 18px;
+}
+
+.itemInfo_td .itemInfo_td_div_area .orderItem_prc {
+    border-bottom: 1px solid #000;
+    padding: 0 0 15px 0;
+}
+
+.itemInfo_td .itemInfo_td_div_area .orderItem_prc .sell_prc {
+    display: inline-block;
+    font-size: 32px;
+    color: #333;
+    font-weight: bold;
+    font-family: 'Tahoma', sans-serif;
+    vertical-align: middle;
+    padding-right: 8px;
+}
+
+.itemInfo_td .itemInfo_td_div_area .orderItem_prc .sell_prc .price_unit {
+    font-size: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: normal;
+    color: #333;
+}
+
+.itemInfo_td .itemInfo_td_div_area .info dl {
+    padding: 20px 0px 35px 0px;
+    border-bottom: 1px solid #ededed;
+}
+dl {
+    margin: 0;
+}
+
+.itemInfo_td .itemInfo_td_div_area .info dl > dt {
+    float: left;
+    width: 100px;
+    font-size: 14px;
+    color: #666;
+    font-weight: 300;
+}
+
+.itemInfo_td .itemInfo_td_div_area .info dl > dd {
+    float: left;
+    max-width: 370px;
+    font-size: 14px;
+}
+
+dd, dt {
+    line-height: inherit;
+}
+
+dd {
+    margin-left: 0;
+}
+
+.itemInfo_td .itemInfo_td_div_area .info dl > dd .origin {
+    font-size: 14px;
+    color: #333;
+    padding: 0 5px 0 0;
+    vertical-align: baseline;
+}
+
+.itemInfo_td .itemInfo_td_div_area .info dl:last-child {
+    border-bottom: 0;
+}
+
+.itemInfo_td .itemInfo_td_div_area .info dl > dt {
+    float: left;
+    width: 100px;
+    font-size: 14px;
+    color: #666;
+    font-weight: 300;
+}
+
+.itemInfo_td .itemInfo_td_div_area .info dl > dd .delivery {
+    font-size: 14px;
+    color: #B11116;
+    padding: 0 5px 0 0;
+    vertical-align: baseline;
+}
+
+img {
+    border: 0;
+}
+
+.shop_item_select_box .shop_item_select .item_select_num .item_num input {
+    width: 40px;
+    height: 30px;
+    font-size: 14px;
+    color: #222;
+    font-family: 'Tahoma', sans-serif;
+    border: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.shop_item_select_box .shop_item_select .item_select_num .qnty-box-price span {
+    font-size: 16px;
+    padding: 0 20px 0 0;
+}
+
+.shop_item_select_box .shop_item_select .item_select_num .qnty-box-price input {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.shop_item_select_box .shop_item_select .item_select_num .qnty-box-price .won {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.itemOption_btn {
+    width: 100%;
+    position: relative;
+    padding: 40px 0 0;
+}
+
+.itemInfo_td .itemInfo_td_div_area .itemOption_btn .itemOption_cart_btn_area {
+    display: inline-block;
+    padding: 0 3px 0 0;
+}
+
+.itemInfo_td .itemInfo_td_div_area .itemOption_btn .itemOption_cart_btn_area .btn {
+    width: 200px;
+    height: 54px;
+    font-size: 18px;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #B11116;
+    color: #B11116;
+    cursor: pointer;
+}
+
+.itemInfo_td .itemInfo_td_div_area .itemOption_btn .itemOption_order_btn_area .btn_black {
+    width: 200px;
+    height: 54px;
+    font-size: 18px;
+    font-weight: 500;
+    background: #B11116;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+}
+
+.itemMenu_tap_area {
+    margin: 40px 0 40px 0;
+}
+
+#itemContent_wrap #item_info {
+    max-height: 4000px;
+    overflow: hidden;
+}
+
+#sit_inf_explan img {
+    max-width: 860px;
+    height: auto;
+    display: block;
+    vertical-align: top;
+    margin: 0 auto;
+    padding: 0;
+}
