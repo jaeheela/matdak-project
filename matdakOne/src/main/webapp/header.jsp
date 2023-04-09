@@ -1,109 +1,12 @@
 <%@page import="xyz.itwill.dto.HewonDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<style type="text/css">
-
-.header-box .header-login-join ul{
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    top:20px;
-    right: 5px;
-}
-
-.header-box .header-login-join ul li{
-	display: inline;
-    margin-top: 5px;
-}    
-
-.header-box .header-logo{
-    margin: 20px;
-}   
-
-.header-box .header-logo img{ 
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width : 280px;
-}  
-
-.header-box .header-menu{
-    display: flex;
-    padding: 10px;
-    justify-content: space-around;
-    background-color:#FFFFFF;
-    border-bottom: 1px solid rgb(160, 158, 158);
-}
-
-.header-box .header-menu .header-menu-category a:hover,
-.header-box .header-menu .header-menu-best a:hover,
-.header-box .header-menu .header-menu-notice:hover,
-.header-box .header-menu .header-menu-mypage:hover,
-.header-box .header-menu .header-menu-basket:hover {
-    cursor: pointer;
-}
-.header-box .header-login-join>ul>li>a:hover,
-.header-box .header-menu>.header-menu-category>span>a:hover,
-.header-box .header-menu>.header-menu-category>.header-menu-category-list>li>a:hover,
-.header-box .header-menu>.header-menu-best>a:hover,
-.header-box .header-menu>.header-menu-notice>span>a:hover,
-.header-box .header-menu>.header-menu-notice>.header-menu-notice-list>li>a:hover {
-       color: orange;
-}
-
-
-/*
-.header-box .header-menu:before {
-    content: '';
-    display: block;
-    width: 90%;
-    height: 1px;
-    background: rgb(228, 225, 225);
-    position: absolute;
-    top: 15%; 
-}
-.header-box .header-menu:after {
-    content: '';
-    display: block;
-    width: 90%;
-    height: 1px;
-    background: rgb(228, 225, 225);
-    position: absolute;
-    top: 20%; 
-    margin-top: -7px;
-}
-*/
-
-.header-box .header-menu .header-menu-category .header-menu-category-list{
-    margin-top:5px;
-    text-align: center;  
-    display: none;
-}
-.header-box .header-menu .header-menu-category .header-menu-category-list li{
-    padding-top:15px;
-}
-
-
-.header-box .header-menu .header-menu-notice .header-menu-notice-list{
-    margin-top:5px;
-    text-align: center;   
-    display: none;
-}
-.header-box .header-menu .header-menu-notice .header-menu-notice-list li{
-    padding-top:15px;
-}
-.header-box .header-menubar{
-    display: block;
-    position: sticky;
-    top:0px;
-}
-</style>
+<%@include file="resources/css_header.jspf" %>		
 <%
 	HewonDTO loginHewon=(HewonDTO)session.getAttribute("loginHewon");
 %>    
 <div class="header-login-join">
-	
-		<% if(loginHewon==null) {//비로그인 사용자인 경우 %>
+	<% if(loginHewon==null) {//비로그인 사용자인 경우 %>
 		<ul style="margin-left: 20px;">
 		<li><a href="index.jsp?workgroup=hewon&work=hewon_login&login=1"><span style="font-size: 13px;">로그인</span></a>&nbsp;&nbsp;</li>
 		<li><a href="index.jsp?workgroup=hewon&work=hewon_join"><span style="font-size: 13px;">회원가입</span></a>&nbsp;&nbsp;</li>

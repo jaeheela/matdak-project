@@ -1,26 +1,14 @@
 <%@page import="xyz.itwill.dto.ProductDTO"%>
-<%@page import="xyz.itwill.dao.AdminPDAO"%>
 <%@page import="xyz.itwill.dao.ProductDAO"%>
 <%@page import="xyz.itwill.dto.BestDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="xyz.itwill.dao.BestDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%--
-	List<ProductDTO> mainList=ProductDAO.getDAO().selectMainList();
---%>    
-    
-<!DOCTYPE html>
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MAKDAK</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/shop/best_list.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
 <style type="text/css">
-
 .item_area {
     font-size: 20px;
     color: #222;
@@ -53,44 +41,42 @@ a {
     color: black;
 }
 </style>
-
-
-</head>
-
-<body>
 	
 <div id="content">
 
-<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+	<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+	<!--캐러셀 이미지 영역----------------------------------------------------------------------->
+	<div class="carousel-inner" id="mainImg">
+	  <div class="carousel-item active" data-bs-interval="10000">
+	    <a href="<%=request.getContextPath()%>/index.jsp?workgroup=shop&work=product_detail&pNo=4004"><img src="<%=request.getContextPath()%>/main/ANSIM.jpg"   class="d-block w-100"></a>
+	  <div class="carousel-caption d-none d-md-block">
+	  </div>
+	</div>
+	<div class="carousel-item" data-bs-interval="2000">
+	  <a href="<%=request.getContextPath()%>/index.jsp?workgroup=shop&work=product_detail&pNo=1004"><img src="<%=request.getContextPath()%>/main/DAKGASM.jpg"   class="d-block w-100"></a>
+	  <div class="carousel-caption d-none d-md-block">
+	  </div>
+	</div>
+	 <div class="carousel-item">
+	  <a href="<%=request.getContextPath()%>/index.jsp?workgroup=shop&work=product_detail&pNo=5003"><img src="<%=request.getContextPath()%>/main/DESSERT.jpg"   class="d-block w-100"></a>
+	    <div class="carousel-caption d-none d-md-block">
+	    </div>
+	  </div>
+	</div>
+	<!--캐러셀 이미지 영역----------------------------------------------------------------------->
+	<!--캐러셀 양쪽 화살표 영역---------------------------------------------------------------->
+	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Previous</span>
+	  </button>
+	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Next</span>
+	  </button>
+	<!--캐러셀 양쪽 화살표 영역---------------------------------------------------------------->
+	</div>
 
-  <!--캐러셀 이미지 영역----------------------------------------------------------------------->
-  <div class="carousel-inner" id="mainImg">
-    <div class="carousel-item active" data-bs-interval="10000">
-      <a href="<%=request.getContextPath()%>/index.jsp?workgroup=shop&work=product_detail&pNo=4004"><img src="<%=request.getContextPath()%>/main/ANSIM.jpg"   class="d-block w-100"></a>
-      <div class="carousel-caption d-none d-md-block">
-      </div>
-    </div>
-    <div class="carousel-item" data-bs-interval="2000">
-      <a href="<%=request.getContextPath()%>/index.jsp?workgroup=shop&work=product_detail&pNo=1004"><img src="<%=request.getContextPath()%>/main/DAKGASM.jpg"   class="d-block w-100"></a>
-      <div class="carousel-caption d-none d-md-block">
-      </div>
-    </div>
-     <div class="carousel-item">
-      <a href="<%=request.getContextPath()%>/index.jsp?workgroup=shop&work=product_detail&pNo=5003"><img src="<%=request.getContextPath()%>/main/DESSERT.jpg"   class="d-block w-100"></a>
-      <div class="carousel-caption d-none d-md-block">
-      </div>
-    </div>
-  </div>
-  <!--캐러셀 양쪽 화살표 영역---------------------------------------------------------------->
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+
 <div class="item_area">
 
 
@@ -119,8 +105,7 @@ a {
 					<!-- dessert 상품이미지 --> 
 					<div class="best1">
 						<a href="<%=request.getContextPath()%>/index.jsp?workgroup=shop&work=product_detail&pNo=5000&pageNum=1&search=DESSERT"> 
-							<img
-							src="<%=request.getContextPath()%>/product_image/5_1.jpg" width="300" height="300">
+						<img src="<%=request.getContextPath()%>/product_image/5_1.jpg" width="300" height="300">
 						</a>
 					</div> 
 					<!-- dessert 상품명&가격 -->

@@ -1,0 +1,288 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<style>
+@charset "UTF-8";
+#mypage_buy_list_wrap {
+    width: 1000px;
+    margin: 20px auto 150px;
+}
+
+.buy_list_wrap {
+    width: 1000px;
+    margin: 0 auto;
+    font-size: 13px;
+}
+
+.buy_list_tab {
+    padding: 0px 0 30px;
+    text-align: center;
+    font-size: 13px;
+    color: #808080;
+}
+
+.select_tab {
+    color: #ff2222;
+    border-bottom: 2px solid #ff2222;
+}
+
+.all_buy_list {
+    display: inline-block;
+    padding: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.buy_list_wrapper {
+    margin-bottom: 50px;
+}
+
+.buy_list_box {
+    margin-bottom: 20px;
+}
+
+.buy_list_box table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+colgroup {
+    display: table-column-group;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.buy_list_box .buy_list_title {
+    border-top: 1px solid #666;
+    height: 40px;
+    line-height: 40px;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.buy_list_left_top {
+    text-align: center;
+}
+
+td {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+.buy_list_content_box {
+    border-bottom: 1px solid #eee;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.buy_list_left {
+    text-align: center;
+    border-top: 1px solid #999;
+}
+
+td {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+div {
+    display: block;
+}
+
+.buy_list_info_area {
+    border-top: 1px solid #999;
+    position: relative;
+}
+
+.buy_goods_info:first-child {
+    border-top: none;
+}
+
+.buy_goods_info {
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+}
+
+.product_info {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.product_info .buy_list_img {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+
+.product_info > div {
+    float: left;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+.product_info > div {
+    float: left;
+}
+
+.product_info .buy_list_info .product_title {
+    font-size: 16px;
+    color: #222;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+.product_info .buy_list_info .product_title2 {
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.product_info .buy_list_info .product_title2 table, .product_info .buy_list_info .product_add table {
+    width: 100%;
+    margin-bottom: 7px;
+}
+.buy_list_box table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+colgroup {
+    display: table-column-group;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.product_info .buy_list_info .product_title2 table tr td.title {
+    font-size: 13px;
+    color: #666;
+}
+.product_info .buy_list_info .product_title2 table tr:first-child td {
+    border-top: 0;
+}
+.product_info .buy_list_info .product_title2 table tr td {
+    padding: 12px 0;
+}
+
+td {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+.product_info .buy_list_info .product_title2 table tr:first-child td {
+    border-top: 0;
+}
+.product_info .buy_list_info .product_title2 table td.product_add_price, .product_info .buy_list_info .product_add table td.product_add_price {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+
+.product_info .buy_list_info .product_title2 table td.product_add_price span, .product_info .buy_list_info .product_add table td.product_add_price span {
+    font-size: 15px;
+    color: #666;
+}
+
+.product_info .buy_list_info .product_title2 table tr:first-child td {
+    border-top: 0;
+}
+.product_info .buy_list_info .product_title2 table td.product_add_amount, .product_info .buy_list_info .product_add table td.product_add_amount {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+
+.product_info .buy_list_info .product_title2 table td.product_add_amount span, .product_info .buy_list_info .product_add table td.product_add_amount span {
+    font-size: 15px;
+    color: #666;
+    font-family: 'Tahoma', sans-serif;
+}
+
+.product_delivery {
+    padding: 0 0 0 5px;
+}
+
+.product_delivery .product_img {
+    width: 20px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.product_delivery .product_img img {
+    width: 100%;
+}
+
+.product_delivery .product_deli1 {
+    display: inline-block;
+    color: #999;
+}
+
+.product_delivery_modify {
+    height: 35px;
+    line-height: 20px;
+    padding: 15px 15px 10px 15px;
+    overflow: hidden;
+    border-top: 1px solid #eee;
+}
+
+.product_delivery_modify .delivery_img {
+    display: inline-block;
+    width: 30px;
+    margin-right: 5px;
+}
+.product_delivery_modify span {
+    float: left;
+}
+
+.product_delivery_modify .delivery_img img {
+    width: 100%;
+}
+
+.buy_list_right {
+    border-top: 1px solid #999;
+    text-align: center;
+}
+
+.buy_right_cancle {
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin: 0 auto;
+    cursor: pointer;
+}
+</style>

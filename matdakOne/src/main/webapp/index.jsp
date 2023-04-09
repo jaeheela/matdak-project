@@ -26,13 +26,12 @@ String contentPath = workgroup + "/" + work + ".jsp";
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MATDAK</title>
-<script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="js/jquery.menu.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery.menu.js"></script>
 
-<link rel="stylesheet" href="csshome/reset.css" type="text/css">
-<link rel="stylesheet" href="csshome/common.css" type="text/css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/csshome/reset.css" type="text/css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/csshome/common.css" type="text/css">
 </head>
 <body>
 	<div class="header-box">
