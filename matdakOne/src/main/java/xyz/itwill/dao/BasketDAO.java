@@ -27,7 +27,7 @@ public class BasketDAO extends JdbcDAO {
 		return _dao;
 	}
 	
-	//basket 객체를 전달받아 BASKET 테이블에 삽입하고 삽입행의 갯수를 반환하는 메소드
+	//insertBasket(BasketDTO basket)
 	public int insertBasket(BasketDTO basket) {
 		Connection con = null;
 	    PreparedStatement pstmt = null;
@@ -55,7 +55,7 @@ public class BasketDAO extends JdbcDAO {
 	}
 		 
 	//추가
-	//장바구니번호(b_no)를 전달받아 Basket 테이블에 있는 해당 장바구니를 검색해 반환하는 메소드 
+	//selectBasket(int bNo)
 	public BasketDTO selectBasket(int bNo){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -106,8 +106,8 @@ public class BasketDAO extends JdbcDAO {
 	    
 	  }
 	  
-	  //추가
-	  //아이디(b_id)를 전달받아 Basket 테이블에 있는 해당 장바구니의 갯수를 검색해 반환하는 메소드 
+	//추가
+	//selectBasketCount(String id)
 	public int selectBasketCount(String id) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -133,11 +133,8 @@ public class BasketDAO extends JdbcDAO {
 			  return count;
 		  }
 	  
-	  
-	  
-	  //추가
-	  //아이디(b_id)를 전달받아 Basket 테이블에 있는 
-	  //해당 장바구니 리스트를 검색해 반환하는 메소드 
+	//추가
+	//selectBasketCountTwo(String id)
 	public List<BasketDTO> selectBasketCountTwo(String id) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -175,6 +172,7 @@ public class BasketDAO extends JdbcDAO {
 	}
 	  
 	  
+	//selectBasketList(String id)
 	//아이디를 전달받아 Basket 테이블에 있는 장바구니 list를 검색해 반환하는 메소드 
 	public List<BasketDTO> selectBasketList(String id){
 		Connection con = null;
@@ -210,6 +208,8 @@ public class BasketDAO extends JdbcDAO {
 	}
 	
 	//제품 번호를 전달받아 해당 장바구니 정보를 삭제하고 삭제행의 개수를 반환하는 메소드 
+	
+	//deleteBasket(int bNo)
 	public int deleteBasket(int bNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

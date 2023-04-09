@@ -25,8 +25,7 @@ public class JumunDAO extends JdbcDAO {
 		return _dao;
 	}
 	
-	
-	//주문정보(객체)를 전달받아 JUMUN 테이블에 삽입하는 DAO 클래스의 메소드 호출 
+	//insertJumun(JumunDTO jumun) 
 	public int insertJumun(JumunDTO jumun) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -62,9 +61,7 @@ public class JumunDAO extends JdbcDAO {
 		return rows;
 	}
 
-	 
-	 //아이디와 주문상태를 전달받아 jumun 테이블에 저장된 해당 아이디의 주문 내역에서 
-	 //회원주문내역을 변경하고 개수를 반환하는 메소드 
+	//updatejStatus(int jno, int jStatus)
 	public int updatejStatus(int jno, int jStatus) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -85,10 +82,7 @@ public class JumunDAO extends JdbcDAO {
 		return rows;
 	}
 
-	 
-	 
-    //순서 : 식별자 상품번호 아이디 수량 총 금액 날짜 상태 이름 휴대폰 우편번호 기본주소 상세주소 배송메세지 결제수단 배송비
-	 //아이디를 전달받아 jumun 테이블에 있는 주문 정보를 검색해 반환하는 메소드 
+	//selectJumun (String jid)
 	public JumunDTO selectJumun (String jid) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -131,7 +125,7 @@ public class JumunDAO extends JdbcDAO {
 		return jumun;
 	}
 
-
+	//selectJumunList(String jid)
 	public List<JumunDTO> selectJumunList(String jid){
 		Connection con = null;
 		PreparedStatement pstmt = null;

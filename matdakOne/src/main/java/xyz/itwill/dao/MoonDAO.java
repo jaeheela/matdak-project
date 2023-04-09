@@ -24,8 +24,7 @@ public class MoonDAO extends JdbcDAO {
 		return _dao;
 	}
 
-	//1.
-	//검색 관련 정보를 전달받아 BOARD 테이블에 저장된 특정 게시글의 갯수를 검색하여 반환하는 메소드
+	//selectMoonCount(String search, String keyword)
 	public int selectMoonCount(String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -57,9 +56,7 @@ public class MoonDAO extends JdbcDAO {
 		return count;
 	}
 	
-	//2.
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료 게시글의 행번호를 전달
-	//받아 BAORD 테이블에 저장된 특정 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 메소드
+	//selectMoonList(int startRow, int endRow, String search, String keyword)
 	public List<MoonDTO> selectMoonList(int startRow, int endRow, String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -113,8 +110,7 @@ public class MoonDAO extends JdbcDAO {
 		return moonList;
 	}
 	
-	//3.
-	//MOON_SEQ 시퀸스의 다음값을 검색하여 반환하는 메소드
+	//selectNextNum
 	public int selectNextNum() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -139,8 +135,7 @@ public class MoonDAO extends JdbcDAO {
 		return nextNum;
 	}
 	
-	//4.
-	//게시글을 전달받아 MOON 테이블에 삽입하고 삽입행의 갯수를 반환하는 메소드
+	//insertMoon(MoonDTO moon)
 	public int insertMoon(MoonDTO moon) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -170,10 +165,7 @@ public class MoonDAO extends JdbcDAO {
 		return rows;
 	}
 	
-	//5.
-	//부모글의 정보를 전달받아 MOON 테이블에 저장된 게시글에서 그룹이 같은 게시글 중 
-	//부모글보다 순서가 높이 모든 게시글의 RE_STEP 컬럼값이 1씩 증가되도록 변경하고 
-	//변경행의 갯수를 반환하는 메소드
+	//updatemRestep(int mRef, int mRestep)
 	public int updatemRestep(int mRef, int mRestep) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -195,8 +187,7 @@ public class MoonDAO extends JdbcDAO {
 		return rows;
 	}
 		
-	//6.
-	//글번호를 전달받아 BOARD 테이블에 저장된 해당 글번호의 게시글을 검색하여 반환하는 메소드
+	//selectMoon(int mCode)
 	public MoonDTO selectMoon(int mCode) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -236,9 +227,7 @@ public class MoonDAO extends JdbcDAO {
 		return moon;
 	}
 	
-	//7.
-	//글번호를 전달받아 BAORD 테이블에 저장된 해당 글번호의 게시글 조회수가 1 증가되도록 
-	//변경하고 변경행의 갯수를 반환하는 메소드
+	//updatemLook(int mCode)
 	public int updatemLook(int mCode) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -259,8 +248,7 @@ public class MoonDAO extends JdbcDAO {
 		return rows;
 	}
 	
-	//8.
-	//게시글을 전달받아 MOON 테이블에 저장된 해당 게시글을 변경하고 변경행의 갯수를 반환하는 메소드
+	//updateMoon(MoonDTO moon)
 	public int updateMoon(MoonDTO moon) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -284,9 +272,7 @@ public class MoonDAO extends JdbcDAO {
 		return rows;
 	}
 	
-	//9.
-	//글번호와 글상태를 전달받아 MOON 테이블에 저장된 해당 글번호의 게시글에 대한 상태를
-	//변경하고 변경행의 갯수를 반환하는 메소드
+	//updatemStatus(int mCode, int mStatus)
 	public int updatemStatus(int mCode, int mStatus) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

@@ -54,55 +54,53 @@ public class ProductDAO extends JdbcDAO {
 		return mainList;
 	}
 	
-	//1.추가
-	//검색 관련 정보를 전달받아 RPRDUCT 테이블에 저장된 
-	//특정 게시글의 갯수를 검색하여 반환하는 메소드
-		public int selectProductCount(String search, String keyword) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			ResultSet rs=null;
-			int count=0;
-			try {
-				con=getConnection();
+	//추가
+	//selectProductCount(String search, String keyword)
+	public int selectProductCount(String search, String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			con=getConnection();
 
-				if(keyword.equals("")) {//검색 기능을 사용하지 않은 경우 - 삭제글은 검색되지 않도록
-					if(search.equals("ALL")||search.equals("")) {
-						String sql="select count(*) from product where p_status<>0";
-						pstmt=con.prepareStatement(sql);						
-					} else {
-						String sql="select count(*) from product where p_cate ='"+search+"'and p_status<>0";
-						pstmt=con.prepareStatement(sql);							
-					}
-
-				} else {//검색 기능을 사용한 경우 - 삭제글은 검색되지 않도록
-					
-					if(search.equals("ALL")) {
-						String sql="select count(*) from product where p_name like '%'||?||'%' and p_status<>0";						
-						pstmt=con.prepareStatement(sql);
-						pstmt.setString(1, keyword);
-					} else {
-						String sql="select count(*) from product where p_cate ='"+search+"' and "
-								+ "p_name like '%'||?||'%' and p_status<>0";
-						pstmt=con.prepareStatement(sql);
-						pstmt.setString(1, keyword);
-					}				
+			if(keyword.equals("")) {//검색 기능을 사용하지 않은 경우 - 삭제글은 검색되지 않도록
+				if(search.equals("ALL")||search.equals("")) {
+					String sql="select count(*) from product where p_status<>0";
+					pstmt=con.prepareStatement(sql);						
+				} else {
+					String sql="select count(*) from product where p_cate ='"+search+"'and p_status<>0";
+					pstmt=con.prepareStatement(sql);							
 				}
-				rs=pstmt.executeQuery();
+
+			} else {//검색 기능을 사용한 경우 - 삭제글은 검색되지 않도록
 				
-				if(rs.next()) {
-					count=rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				System.out.println("[에러]selectProductCount() 메서드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt, rs);
+				if(search.equals("ALL")) {
+					String sql="select count(*) from product where p_name like '%'||?||'%' and p_status<>0";						
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				} else {
+					String sql="select count(*) from product where p_cate ='"+search+"' and "
+							+ "p_name like '%'||?||'%' and p_status<>0";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				}				
 			}
-			return count;
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectProductCount() 메서드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
 		}
+		return count;
+	}
 	
-	//2.추가
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료 게시글의 행번호를 전달
-	//받아 NOTICE 테이블에 저장된 특정 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 메소드
+	//추가
+	//selectProductList(int startRow, int endRow, String search, String keyword)
 	public List<ProductDTO> selectProductList(int startRow, int endRow, String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -176,7 +174,7 @@ public class ProductDAO extends JdbcDAO {
 		return productList;	
 	}		
 	
-	//검색 관련 정보를 전달받아 PRODUCT 테이블에 저장된 특정 상품 갯수를 검색하여 반환하는 메소드
+	//selectProductCountSearch(String search, String keyword)
 	public int selectProductCountSearch(String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -206,7 +204,7 @@ public class ProductDAO extends JdbcDAO {
 		return count;
 	}
 
-	//검색 관련 정보를 전달받아 PRODUCT 테이블에 저장된 특정 상품 갯수를 검색하여 반환하는 메소드
+	//selectProductCountKeyword(String keyword)
 	public int selectProductCountKeyword(String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -235,7 +233,7 @@ public class ProductDAO extends JdbcDAO {
 		return count;
 	}
 
-	//PRODUCT 테이블의 P_STATUS와 검색 관련 정보를 전달받아 PRODUCT 테이블에 저장된 특정 상품 갯수를 검색하여 반환하는 메소드
+	//selectProductCountKeyword(ProductDTO product, String keyword)
 	public int selectProductCountKeyword(ProductDTO product, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -268,8 +266,7 @@ public class ProductDAO extends JdbcDAO {
 		return count;
 	}
 
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료 게시글의 행번호를 전달받아 PRODUCT 테이블에 저장된 
-	//특정 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 메소드
+	//selectProductListSearch(int startRow, int endRow, String search, String keyword)
 	public List<ProductDTO> selectProductListSearch(int startRow, int endRow, String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -317,8 +314,7 @@ public class ProductDAO extends JdbcDAO {
 		return productList;
 	}
 
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료 게시글의 행번호를 전달받아 PRODUCT 테이블에 저장된 
-	//특정 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 메소드
+	//selectProductListKeyword(int startRow, int endRow, String keyword)
 	public List<ProductDTO> selectProductListKeyword(int startRow, int endRow, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -365,10 +361,8 @@ public class ProductDAO extends JdbcDAO {
 		return productList;
 	}
 	
-	
 	//관리자 페이지 사용
-	
-	//제품정보를 전달받아 PRODUCT 테이블에 삽입하고 삽입행의 갯수를 반환하는 메소드
+	//insertProduct(ProductDTO product)
 	public int insertProduct(ProductDTO product) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -395,7 +389,7 @@ public class ProductDAO extends JdbcDAO {
 		return rows;
 	}
 
-	//제품번호를 전달받아 PRODUCT 테이블에 저장된 해당 제품번호의 제품정보를 검색하여 반환하는 메소드
+	//selectProduct(int pNo)
 	public ProductDTO selectProduct(int pNo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -430,7 +424,7 @@ public class ProductDAO extends JdbcDAO {
 		return product;
 	}
 	
-	//제품정보를 전달받아 PRODUCT 테이블에 저장된 해당 제품정보를 변경하고 변경행의 갯수를 반환하는 메소드.
+	//updateProduct(ProductDTO product)
 	public int updateProduct(ProductDTO product) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -458,6 +452,7 @@ public class ProductDAO extends JdbcDAO {
 		return rows;
 	}
 
+	//updatepStatus(int pNo, int pStatus)
 	public int updatepStatus(int pNo, int pStatus) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -480,10 +475,7 @@ public class ProductDAO extends JdbcDAO {
 		return rows;
 	}
 	
-	
-	
-	//카테고리
-	//카테고리를 전달받아 PRODUCT 테이블에 저장된 특정 상품 갯수를 검색하여 반환하는 메소드
+	//selectProductCountpCate(String pCate)
 	public int selectProductCountpCate(String pCate) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -514,8 +506,7 @@ public class ProductDAO extends JdbcDAO {
 		return count;
 	}
 
-	//카테고리를 전달받아 PRODUCT 테이블에 저장된 해당 카테고리의 모든 제품정보를 검색하여 반환하는 메소드
-	// => PRODUCT 테이블에 저장된 모든 제품정보를 검색하여 반환
+	//selectProductListpCate(String pCate)
 	public List<ProductDTO> selectProductListpCate(String pCate) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -556,7 +547,7 @@ public class ProductDAO extends JdbcDAO {
 		return productList;
 	}
 
-	//검색 관련 정보와 카테고리를 전달받아 PRODUCT 테이블에 저장된 해당 카테고리의 상품 갯수를 검색하여 반환하는 메소드
+	//selectProductCountKeywordpCate(String pCate, String keyword)
 	public int selectProductCountKeywordpCate(String pCate, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -588,8 +579,7 @@ public class ProductDAO extends JdbcDAO {
 		return count;
 	}
 	
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료 게시글의 행번호를 전달받아 PRODUCT 테이블에 저장된 
-	//특정 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 메소드
+	//selectProductListKeywordpCate(int startRow, int endRow, String pCate, String keyword)
 	public List<ProductDTO> selectProductListKeywordpCate(int startRow, int endRow, String pCate, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -640,8 +630,7 @@ public class ProductDAO extends JdbcDAO {
 		return productList;
 	}
 	
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료 게시글의 행번호를 전달받아 PRODUCT 테이블에 저장된 
-	//특정 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 메소드
+	//selectProductListKeywordpCate(int startRow, int endRow, String pCate)
 	public List<ProductDTO> selectProductListKeywordpCate(int startRow, int endRow, String pCate) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

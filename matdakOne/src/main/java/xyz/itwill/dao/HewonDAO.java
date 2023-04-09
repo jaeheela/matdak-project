@@ -51,6 +51,78 @@ public class HewonDAO extends JdbcDAO{
 		return rows;
 	}
 	
+	//updateLastLogin(String id)
+	public int updateLastLogin(String id) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update hewon set last_login=sysdate where H_ID=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]updateLastLogin() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	//updateHewon(HewonDTO hewon)
+	public int updateHewon(HewonDTO hewon) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update hewon set H_PW=?,H_NAME=?,h_Email=?,H_PHONE=?,H_POSTCODE=?"
+					+ ",H_ADDR1=?,H_ADDR2=? where H_ID=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, hewon.gethPw());
+			pstmt.setString(2, hewon.gethName());
+			pstmt.setString(3, hewon.gethEmail());
+			pstmt.setString(4, hewon.gethPhone());
+			pstmt.setString(5, hewon.gethPostcode());
+			pstmt.setString(6, hewon.gethAddr1());
+			pstmt.setString(7, hewon.gethAddr2());
+			pstmt.setString(8, hewon.gethId());
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]updatehewon() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	//updateStatus(String id, int status)
+	public int updateStatus(String id, int status) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update hewon set H_STATUS=? where H_ID=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, status);
+			pstmt.setString(2, id);
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]updateStatus() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
 	//selectHewon(String id) 
 	public HewonDTO selectHewon(String id) {
 		Connection con=null;
@@ -116,78 +188,6 @@ public class HewonDAO extends JdbcDAO{
 		return count;
 	}
 	
-	//updateLastLogin(String id)
-	public int updateLastLogin(String id) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		int rows=0;
-		try {
-			con=getConnection();
-			
-			String sql="update hewon set last_login=sysdate where H_ID=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
-			rows=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("[에러]updateLastLogin() 메소드의 SQL 오류 = "+e.getMessage());
-		} finally {
-			close(con, pstmt);
-		}
-		return rows;
-	}
-	
-	//회원정보를 전달받아 hewon 테이블에 저장된 회원정보를 변경하고 변경행의 갯수를 반환하는 메소드
-	public int updateHewon(HewonDTO hewon) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		int rows=0;
-		try {
-			con=getConnection();
-			
-			String sql="update hewon set H_PW=?,H_NAME=?,h_Email=?,H_PHONE=?,H_POSTCODE=?"
-					+ ",H_ADDR1=?,H_ADDR2=? where H_ID=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, hewon.gethPw());
-			pstmt.setString(2, hewon.gethName());
-			pstmt.setString(3, hewon.gethEmail());
-			pstmt.setString(4, hewon.gethPhone());
-			pstmt.setString(5, hewon.gethPostcode());
-			pstmt.setString(6, hewon.gethAddr1());
-			pstmt.setString(7, hewon.gethAddr2());
-			pstmt.setString(8, hewon.gethId());
-			
-			rows=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("[에러]updatehewon() 메소드의 SQL 오류 = "+e.getMessage());
-		} finally {
-			close(con, pstmt);
-		}
-		return rows;
-	}
-	
-	//아이디와 회원상태를 전달받아 hewon 태이블에 저장된 해당 아이디의 회원정보에서 회원상태를
-	//변경하고 변경행의 갯수를 반환하는 메소드
-	public int updateStatus(String id, int status) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		int rows=0;
-		try {
-			con=getConnection();
-			
-			String sql="update hewon set H_STATUS=? where H_ID=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, status);
-			pstmt.setString(2, id);
-			
-			rows=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("[에러]updateStatus() 메소드의 SQL 오류 = "+e.getMessage());
-		} finally {
-			close(con, pstmt);
-		}
-		return rows;
-	}
 	//selectHewonList()
 	public List<HewonDTO> selectHewonList() {
 		Connection con=null;
@@ -273,26 +273,24 @@ public class HewonDAO extends JdbcDAO{
 		return hewonList;	
 	}		
 
-
-
-//아이디를 전달받아 hewon 테이블에 저장된 해당 아이디의 회원정보를 삭제하고 삭제행의 갯수를 반환하는 메소드
-public int deleteHewon(String id) {
-	Connection con=null;
-	PreparedStatement pstmt=null;
-	int rows=0;
-	try {
-		con=getConnection();
-		
-		String sql="delete from hewon where h_id=?";
-		pstmt=con.prepareStatement(sql);
-		pstmt.setString(1, id);
-		
-		rows=pstmt.executeUpdate();
-	} catch (SQLException e) {
-		System.out.println("[에러]deletehewon() 메소드의 SQL 오류 = "+e.getMessage());
-	} finally {
-		close(con, pstmt);
+	//deleteHewon(String id) - 미사용
+	public int deleteHewon(String id) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="delete from hewon where h_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]deletehewon() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
 	}
-	return rows;
-}
 }

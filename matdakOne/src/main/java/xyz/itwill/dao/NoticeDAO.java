@@ -24,43 +24,39 @@ public class NoticeDAO extends JdbcDAO {
 		return _dao;
 	}
 	
-	//1.
-	//검색 관련 정보를 전달받아 NOTICE 테이블에 저장된 
-	//특정 게시글의 갯수를 검색하여 반환하는 메소드
-		public int selectNoticeCount(String search, String keyword) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			ResultSet rs=null;
-			int count=0;
-			try {
-				con=getConnection();
+	//selectNoticeCount(String search, String keyword)
+	public int selectNoticeCount(String search, String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			con=getConnection();
 
-				if(keyword.equals("")) {//검색 기능을 사용하지 않은 경우 - 삭제글은 검색되지 않도록
-					String sql="select count(*) from notice where n_status<>0";
-					pstmt=con.prepareStatement(sql);
-				} else {//검색 기능을 사용한 경우 - 삭제글은 검색되지 않도록
-					String sql="select count(*) from notice join hewon on notice.n_id=hewon.h_id"
-							+ " where "+search+" like '%'||?||'%' and n_status<>0";
-					pstmt=con.prepareStatement(sql);
-					pstmt.setString(1, keyword);
-				}
-				
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					count=rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				System.out.println("[에러]selectNoticeCount() 메서드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt, rs);
+			if(keyword.equals("")) {//검색 기능을 사용하지 않은 경우 - 삭제글은 검색되지 않도록
+				String sql="select count(*) from notice where n_status<>0";
+				pstmt=con.prepareStatement(sql);
+			} else {//검색 기능을 사용한 경우 - 삭제글은 검색되지 않도록
+				String sql="select count(*) from notice join hewon on notice.n_id=hewon.h_id"
+						+ " where "+search+" like '%'||?||'%' and n_status<>0";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
 			}
-			return count;
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectNoticeCount() 메서드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
 		}
+		return count;
+	}
 	
-	//2.	
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료 게시글의 행번호를 전달
-	//받아 PRODUCT 테이블에 저장된 특정 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 메소드
+	//selectNoticeList(int startRow, int endRow, String search, String keyword)
 	public List<NoticeDTO> selectNoticeList(int startRow, int endRow, String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -113,8 +109,7 @@ public class NoticeDAO extends JdbcDAO {
 		return noticeList;	
 	}	
 		
-	//3.
-	//NOTICE_SEQ 시퀀스의 다음값을 검색하여 반환하는 메소드
+	//selectNextNum()
 	public int selectNextNum() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -139,36 +134,33 @@ public class NoticeDAO extends JdbcDAO {
 		return nextnum;
 	}	
 
-	//4.
-	//공지사항 글을 전달받아 NOTICE 테이블에 삽입하고 삽입행의 갯수를 반환하는 메소드
-		public int insertNotice(NoticeDTO notice) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			int rows=0;
-			try {
-				con=getConnection();
-				
-				String sql="insert into notice values(?,?,?,sysdate,0,?,?,?)";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, notice.getnCode());
-				pstmt.setString(2, notice.getnId());
-				pstmt.setString(3, notice.getnContent());
-				pstmt.setInt(4, notice.getnStatus());
-				pstmt.setString(5, notice.getnImage());
-				pstmt.setString(6, notice.getnTitle());
+	//insertNotice(NoticeDTO notice)
+	public int insertNotice(NoticeDTO notice) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
 			
-				rows=pstmt.executeUpdate();
-			} catch (SQLException e) {
-				System.out.println("[에러]insertNotice() 메소드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt);
-			}
-			return rows;
-		}
+			String sql="insert into notice values(?,?,?,sysdate,0,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, notice.getnCode());
+			pstmt.setString(2, notice.getnId());
+			pstmt.setString(3, notice.getnContent());
+			pstmt.setInt(4, notice.getnStatus());
+			pstmt.setString(5, notice.getnImage());
+			pstmt.setString(6, notice.getnTitle());
 		
-	//5.
-	//글번호(nCode)를 전달받아 NOTICE 테이블에 저장된 해당 글번호의 공지사항 글을 
-	//검색하여 반환하는 메소드
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]insertNotice() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+		
+	//selectNotice(int nCode)
 	public NoticeDTO selectNotice(int nCode) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -204,9 +196,7 @@ public class NoticeDAO extends JdbcDAO {
 		return notice;
 	}	
 
-	//6.
-	//글번호를 전달받아 NOTICE 테이블에 저장된 해당 글번호의 게시글의 조회수가 1 증가되도록 변경하고
-	//변경행의 갯수를 반환하는 메소드
+	//updatenLook(int nCode) 
 	public int updatenLook(int nCode) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -227,8 +217,7 @@ public class NoticeDAO extends JdbcDAO {
 		return rows;
 	}
 
-	//7.
-	//게시글을 전달받아 NOTICE 테이블에 저장된 해당 게시글을 변경하고 변경행의 갯수를 반환하는 메소드
+	//updateNotice(NoticeDTO notice) 
 	public int updateNotice(NoticeDTO notice) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -252,11 +241,7 @@ public class NoticeDAO extends JdbcDAO {
 		return rows;
 	}
 	
-	
-	//8.
-	//글번호와 글상태를 전달받아 NOTICE 테이블에 저장된 해당 글번호의 게시글에 대한 상태를 
-	//변경하고 변경행의 갯수를 반환하는 메소드
-	// 0 (삭제글), 1(일반글)
+	//updatenStatus(int nCode, int nStatus)
 	public int updatenStatus(int nCode, int nStatus) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

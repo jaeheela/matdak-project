@@ -25,9 +25,7 @@ public class ReviewDAO extends JdbcDAO {
 		return _dao;
 	}
 
-	//1.
-	//검색 관련 정보를 전달받아 REVIEW 테이블에 저장된 
-	//특정 게시글의 갯수를 검색하여 반환하는 메소드
+	//selectReviewCount(String reveiwSearch, String reviewKeyword)
 	public int selectReviewCount(String reveiwSearch, String reviewKeyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -94,10 +92,7 @@ public class ReviewDAO extends JdbcDAO {
 		return count;
 	}
 
-	
-	//2.	
-	//검색 관련 정보 및 요청 페이지에 대한 시작 게시글의 행번호와 종료 게시글의 행번호를 전달
-	//받아 NOTICE 테이블에 저장된 특정 게시글에서 해당 범위의 게시글만을 검색하여 반환하는 메소드
+	//selectReviewList(int startRow, int endRow, String reviewSearch, String reviewKeyword) 
 	public List<ReviewDTO> selectReviewList(int startRow, int endRow, String reviewSearch, String reviewKeyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -224,8 +219,7 @@ public class ReviewDAO extends JdbcDAO {
 		return reviewList;	
 	}			
 		
-	//3.
-	//REVIEW_SEQ 시퀀스의 다음값을 검색하여 반환하는 메소드
+	//selectNextNum()
 	public int selectNextNum() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -250,38 +244,35 @@ public class ReviewDAO extends JdbcDAO {
 		return nextnum;
 	}	
 
-	//4.
-	//리뷰 글을 전달받아 REVIEW 테이블에 삽입하고 삽입행의 갯수를 반환하는 메소드
-		public int insertRview(ReviewDTO review) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			int rows=0;
-			try {
-				con=getConnection();
-				
-				String sql="insert into review values(?,?,?,?,sysdate,?,?,?,?)";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, review.getrCode());
-				pstmt.setString(2, review.getrId());
-				pstmt.setInt(3, review.getrJno());
-				pstmt.setString(4, review.getrContent());
-				pstmt.setInt(5, review.getrStatus());
-				pstmt.setString(6, review.getrImage());
-				pstmt.setInt(7, review.getrStar());
-				pstmt.setInt(8, review.getrDone());
+	//insertRview(ReviewDTO review)
+	public int insertRview(ReviewDTO review) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
 			
-				rows=pstmt.executeUpdate();
-			} catch (SQLException e) {
-				System.out.println("[에러]insertRview() 메소드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt);
-			}
-			return rows;
-		}
+			String sql="insert into review values(?,?,?,?,sysdate,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, review.getrCode());
+			pstmt.setString(2, review.getrId());
+			pstmt.setInt(3, review.getrJno());
+			pstmt.setString(4, review.getrContent());
+			pstmt.setInt(5, review.getrStatus());
+			pstmt.setString(6, review.getrImage());
+			pstmt.setInt(7, review.getrStar());
+			pstmt.setInt(8, review.getrDone());
 		
-	//5.
-	//리뷰글번호(rCode)를 전달받아 REVIEW 테이블에 저장된 해당 번호의 리뷰글을 
-	//검색하여 반환하는 메소드 - 리뷰수정하기 위해 필요
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]insertRview() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+		
+	//selectReview(int rCode)
 	public ReviewDTO selectReview(int rCode) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -317,9 +308,7 @@ public class ReviewDAO extends JdbcDAO {
 		return review;
 	}	
 
-	//6.
-	//리뷰글을 전달받아 REVIEW 테이블에 저장된 해당 게시글을 변경하고 
-	//변경행의 갯수를 반환하는 메소드
+	//updateReview(ReviewDTO review)
 	public int updateReview(ReviewDTO review) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -345,11 +334,7 @@ public class ReviewDAO extends JdbcDAO {
 		return rows;
 	}
 	
-	
-	//7.
-	//글번호와 글상태를 전달받아 REVIEW 테이블에 저장된 해당 글번호의 게시글에 대한 상태를 
-	//변경하고 변경행의 갯수를 반환하는 메소드
-	// 0 (삭제글), 1(일반글), 2(비밀글)
+	//updaterStatus(int rCode, int rStatus) - 0 (삭제글), 1(일반글), 2(비밀글)
 	public int updaterStatus(int rCode, int rStatus) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
