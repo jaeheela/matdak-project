@@ -3,7 +3,7 @@
 ### matdak
 - jsp model1 & servlet 으로 구현
 ### matdakOne
-- DB 관계 업데이트 후 재구현
+- DB 관계 업데이트 후 코드 리팩토링
 ### matdakTwo
 - spring framework
 - mvc 패턴으로 재구현
