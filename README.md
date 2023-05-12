@@ -6,15 +6,15 @@
 ## 🛠️Skill
 <table>
   <tr>
-    <td> IDE </td>
-    <td> eclipse (Dynamic Web Project)</td>
-  </tr>  
+    <td> WEB PROGRAMMING </td>
+    <td> jsp, servlet </td>
+  </tr> 
   <tr>
-    <td rowspan="2"> DATABASE </td>
+    <td rowspan="2"> DB </td>
     <td> Oracle </td>
   </tr>  
   <tr>
-    <td> connection : jdbc (ojdbc11) </td>
+    <td> connection : ojdbc11 </td>
   </tr>  
   <tr>
     <td> WAS </td>
@@ -25,11 +25,7 @@
     <td> CSL : HTML. CSS, JAVASCRIPT, jQuery</td>
   </tr> 
   <tr>
-    <td> SSL : Java 11 </td>
-  </tr> 
-  <tr>
-    <td> web programming </td>
-    <td> JSP, servlet </td>
+    <td> SSL : Java </td>
   </tr> 
 </table>
 
