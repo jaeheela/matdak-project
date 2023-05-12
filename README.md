@@ -36,7 +36,6 @@
 ![matdak](https://github.com/jaeheela/matdak-project/assets/107570140/29801616-3546-48e9-b083-533c792787bd)
 
 ## 화면정의서
-![화면정의서1](https://github.com/jaeheela/matdak-project/assets/107570140/7233cf48-8686-4cd0-810d-5f18952bedbe)
 ![화면정의서2](https://github.com/jaeheela/matdak-project/assets/107570140/4a560a79-4755-41f8-8da9-8cbb0b9117d8)
 ![화면정의서3](https://github.com/jaeheela/matdak-project/assets/107570140/a63e3c31-0938-4a61-8fbc-dda22321d1fd)
 ![화면정의서4](https://github.com/jaeheela/matdak-project/assets/107570140/3f388040-bade-4115-a382-847a8d4cdd6d)
