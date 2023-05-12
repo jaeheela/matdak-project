@@ -1,12 +1,41 @@
-# matdak-project
-[프로젝트] 맛있닭 쇼핑몰 사이트 구현
-### matdak
-- jsp model1 & servlet 으로 구현
+# 프로젝트명
+- matdak project
+- 맛있닭 쇼핑몰 사이트 클론
+- 참고사이트 : 맛있닭 
+## 🛠️Skill
+<table>
+  <tr>
+    <td> IDE </td>
+    <td> eclipse (Dynamic Web Project)</td>
+  </tr>  
+  <tr>
+    <td rowspan="2"> DATABASE </td>
+    <td> Oracle </td>
+  </tr>  
+  <tr>
+    <td> connection : jdbc (ojdbc11) </td>
+  </tr>  
+  <tr>
+    <td> WAS </td>
+    <td> Apache Tomcat </td>
+  </tr>  
+  <tr>
+    <td rowspan="2"> language </td>
+    <td> CSL : HTML. CSS, JAVASCRIPT, jQuery</td>
+  </tr> 
+  <tr>
+    <td> SSL : Java 11 </td>
+  </tr> 
+  <tr>
+    <td> web programming </td>
+    <td> JSP, servlet </td>
+  </tr> 
+</table>
 
-### DB설계서
+## DB설계서
 ![matdak](https://github.com/jaeheela/matdak-project/assets/107570140/29801616-3546-48e9-b083-533c792787bd)
 
-### 화면정의서
+## 화면정의서
 ![화면정의서1](https://github.com/jaeheela/matdak-project/assets/107570140/7233cf48-8686-4cd0-810d-5f18952bedbe)
 ![화면정의서2](https://github.com/jaeheela/matdak-project/assets/107570140/4a560a79-4755-41f8-8da9-8cbb0b9117d8)
 ![화면정의서3](https://github.com/jaeheela/matdak-project/assets/107570140/a63e3c31-0938-4a61-8fbc-dda22321d1fd)
