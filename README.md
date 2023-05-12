@@ -1,7 +1,7 @@
 # 프로젝트명
 - matdak project
 - 맛있닭 쇼핑몰 사이트 클론
-- 참고사이트 : 맛있닭 
+- 참고사이트 : 맛있닭 : https://masitdak.com/
 ## 🛠️Skill
 <table>
   <tr>
