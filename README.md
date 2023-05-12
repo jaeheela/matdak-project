@@ -1,5 +1,6 @@
 # 프로젝트명
 - MATDAK
+- 개발인원 : 4명
 - 맛있닭 쇼핑몰 사이트 클론
 - 참고사이트 : 맛있닭 : https://masitdak.com/
 ## 🛠️Skill
@@ -36,7 +37,6 @@
 ![matdak](https://github.com/jaeheela/matdak-project/assets/107570140/29801616-3546-48e9-b083-533c792787bd)
 
 ## 화면정의서
-![화면정의서2](https://github.com/jaeheela/matdak-project/assets/107570140/4a560a79-4755-41f8-8da9-8cbb0b9117d8)
 ![화면정의서3](https://github.com/jaeheela/matdak-project/assets/107570140/a63e3c31-0938-4a61-8fbc-dda22321d1fd)
 ![화면정의서4](https://github.com/jaeheela/matdak-project/assets/107570140/3f388040-bade-4115-a382-847a8d4cdd6d)
 ![화면정의서5](https://github.com/jaeheela/matdak-project/assets/107570140/8b648ebf-caea-4792-a567-b317e8288b89)
