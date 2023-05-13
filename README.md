@@ -21,12 +21,13 @@
     <td> Apache Tomcat </td>
   </tr>  
   <tr>
-    <td rowspan="2"> language </td>
-    <td> CSL : HTML. CSS, JAVASCRIPT, jQuery</td>
+    <td> language </td>
+    <td> Java, HTML. CSS, JAVASCRIPT, jQuery</td>
   </tr> 
   <tr>
-    <td> SSL : Java </td>
-  </tr> 
+    <td> TEAM COLLABORATION TOOL </td>
+    <td> ERD cloud </td>
+  </tr>  
 </table>
 
 ## DB설계서
